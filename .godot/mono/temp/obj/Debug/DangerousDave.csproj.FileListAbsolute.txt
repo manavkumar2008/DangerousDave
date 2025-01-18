@@ -1,0 +1,17 @@
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\DangerousDave.deps.json
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\DangerousDave.runtimeconfig.json
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\DangerousDave.dll
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\DangerousDave.pdb
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\GodotSharp.dll
+D:\mm\DangerousDave\.godot\mono\temp\bin\Debug\GodotSharpEditor.dll
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.csproj.AssemblyReference.cache
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.GeneratedMSBuildEditorConfig.editorconfig
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.AssemblyInfoInputs.cache
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.AssemblyInfo.cs
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.csproj.CoreCompileInputs.cache
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\Dangerou.7C47F7FB.Up2Date
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.dll
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\refint\DangerousDave.dll
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.pdb
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.genruntimeconfig.cache
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\ref\DangerousDave.dll

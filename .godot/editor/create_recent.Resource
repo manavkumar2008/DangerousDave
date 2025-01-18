@@ -1,0 +1,2 @@
+CanvasTexture
+CompressedTexture2D

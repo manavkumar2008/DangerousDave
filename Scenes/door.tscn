@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1hpoiwxopfep"]
+
+[ext_resource type="Texture2D" uid="uid://b0jqdnt4yed54" path="res://Assest/MS-DOS - Dangerous Dave - Tiles and HUD.png" id="1_b0b1q"]
+[ext_resource type="Script" path="res://Scripts/Door.cs" id="2_ufxv4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lis50"]
+atlas = ExtResource("1_b0b1q")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gfod"]
+size = Vector2(13.3171, 16)
+
+[node name="Door" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(-1.49012e-08, 0)
+scale = Vector2(0.97619, 1)
+texture = SubResource("AtlasTexture_lis50")
+script = ExtResource("2_ufxv4")
+nextLevelPosition = Vector2(571, 587)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2gfod")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

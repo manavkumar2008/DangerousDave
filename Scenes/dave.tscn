@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://polly8rtyrv6"]
+
+[ext_resource type="Script" path="res://Scripts/Dave.cs" id="1_qtpq6"]
+[ext_resource type="Texture2D" uid="uid://c5sefyw6hbj4f" path="res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png" id="5_l07ac"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvrnr"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(1, 1, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dsd8u"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(126, 1, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3odd"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(1, 1, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7s8j"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(76, 1, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttaer"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(26, 1, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yk2xd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qvrnr")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dsd8u")
+}],
+"loop": true,
+"name": &"JUMP",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3odd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7s8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3odd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttaer")
+}],
+"loop": true,
+"name": &"WALK",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gexk"]
+size = Vector2(8, 15.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8f1ap"]
+size = Vector2(10, 16)
+
+[node name="Dave" type="CharacterBody2D"]
+script = ExtResource("1_qtpq6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1, 0.958333)
+sprite_frames = SubResource("SpriteFrames_yk2xd")
+animation = &"IDLE"
+frame_progress = 0.599171
+offset = Vector2(-6.96, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7, 0)
+shape = SubResource("RectangleShape2D_1gexk")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-7, 0)
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8f1ap")
+metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]

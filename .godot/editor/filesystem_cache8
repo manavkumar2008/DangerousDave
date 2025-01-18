@@ -1,0 +1,29 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1737198506
+icon.svg::CompressedTexture2D::3625229683807272301::1736240536::1736240546::1::::<><>::
+::res://Assest/::1737032813
+dave1.png::CompressedTexture2D::2900136455105967995::1736241077::1736241077::1::::<><>::
+dave2.png::CompressedTexture2D::1822499766789550123::1736241077::1736241077::1::::<><>::
+dave3.png::CompressedTexture2D::6816765412182193615::1736241077::1736241077::1::::<><>::
+dave4.png::CompressedTexture2D::6243305985265609040::1736241077::1736241077::1::::<><>::
+DaveTiles.png::CompressedTexture2D::5763375354684528810::1736938688::1736938705::1::::<><>::
+DDTiles.png::CompressedTexture2D::5965792130709623392::1736941753::1737029466::1::::<><>::
+door.png::CompressedTexture2D::4038765463384903706::1736329807::1736329809::1::::<><>::
+gun.png::CompressedTexture2D::1782067653671696175::1736241077::1736241077::1::::<><>::
+hh.png::CompressedTexture2D::411852066099491330::1737032813::1737032813::1::::<><>::
+monster.png::CompressedTexture2D::2593919975654686704::1736241077::1736241077::1::::<><>::
+MS-DOS - Dangerous Dave - Dangerous Dave copy.png::CompressedTexture2D::6915918569004843739::1737027549::1737029466::1::::<><>::
+MS-DOS - Dangerous Dave - Dangerous Dave.png::CompressedTexture2D::5567703317371193820::1736939675::1736939675::1::::<><>::
+MS-DOS - Dangerous Dave - Tiles and HUD.png::CompressedTexture2D::4160698717201123621::1737026072::1737029466::1::::<><>::
+platformTile.png::CompressedTexture2D::4663856254058562252::1736241077::1736241077::1::::<><>::
+redTile.png::CompressedTexture2D::7124774330143152279::1736241077::1736241077::1::::<><>::
+::res://Scenes/::1737193515
+Camera.tscn::PackedScene::7401985452363847841::1737193415::0::1::::<><>::res://Scripts/Camera.cs
+dave.tscn::PackedScene::1082422786118413053::1737193415::0::1::::<><>::res://Scripts/Dave.cs<>uid://c5sefyw6hbj4f::::res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png
+door.tscn::PackedScene::8999558841189546339::1737193415::0::1::::<><>::uid://b0jqdnt4yed54::::res://Assest/MS-DOS - Dangerous Dave - Tiles and HUD.png<>res://Scripts/Door.cs
+main.tscn::PackedScene::2540789569292753848::1737193515::0::1::::<><>::uid://f4re4yqheg4a::::res://Assest/hh.png<>uid://polly8rtyrv6::::res://Scenes/dave.tscn<>uid://d1hpoiwxopfep::::res://Scenes/door.tscn<>uid://ddptvbrqjyt3n::::res://Scenes/Camera.tscn
+::res://Scripts/::1737193506
+Camera.cs::CSharpScript::-1::1736849611::0::1::::<><>::
+Dave.cs::CSharpScript::-1::1737193506::0::1::::<><>::
+Door.cs::CSharpScript::-1::1737192403::0::1::::<><>::
+main.cs::CSharpScript::-1::1736756724::0::1::::<><>::
