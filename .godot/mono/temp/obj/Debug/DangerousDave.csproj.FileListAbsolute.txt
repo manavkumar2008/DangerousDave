@@ -15,3 +15,4 @@ D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\refint\DangerousDave.dll
 D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.pdb
 D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.genruntimeconfig.cache
 D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\ref\DangerousDave.dll
+D:\mm\DangerousDave\.godot\mono\temp\obj\Debug\DangerousDave.sourcelink.json

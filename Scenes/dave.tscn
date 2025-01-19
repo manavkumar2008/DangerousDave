@@ -91,4 +91,4 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_8f1ap")
 metadata/_edit_lock_ = true
 
-[connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="OnBodyShapeEntered"]
