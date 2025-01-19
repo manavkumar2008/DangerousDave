@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq84yv30ewlqe"
-path="res://.godot/imported/DDTiles.png-9378f80df3d0a810b054962c5cb347fe.ctex"
+uid="uid://doj8hl72aal18"
+path="res://.godot/imported/blue.png-78419ab3f9d83d1c0b6eca055038eaa7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assest/DDTiles.png"
-dest_files=["res://.godot/imported/DDTiles.png-9378f80df3d0a810b054962c5cb347fe.ctex"]
+source_file="res://Assest/blue.png"
+dest_files=["res://.godot/imported/blue.png-78419ab3f9d83d1c0b6eca055038eaa7.ctex"]
 
 [params]
 

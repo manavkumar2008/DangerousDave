@@ -55,26 +55,19 @@ public partial class Dave : CharacterBody2D
 			velocity.Y += (float)delta * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	}
 
-	private void OnAreaEntered(Area2D area)
+	private void OnBodyShapeEntered(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
 	{
-		if (area == null)
+		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
+
+		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 0)))
 		{
-			GD.PrintErr("nothing is here");
-			return;
+			OnProceedingToNextLevel((Vector2)tilemap.GetCellTileData(0,tileCoordinate).GetCustomData("Teleport"));
 		}
-		
-		GD.Print("Area2D Global Position: ", area.GlobalPosition);
-		
-		Vector2 localPos = tilemap.ToLocal(area.GlobalPosition);
-		GD.Print("Local Position: ", localPos);
-		
-		Vector2I tilePos = tilemap.LocalToMap(localPos);
-		GD.Print("Tile Position: ", tilePos);
 	}
 
-	private void OnProceedingToNextLevel(Vector2 position)
+	private void OnProceedingToNextLevel(Vector2 teleportCoordinate)
 	{
-		Position = position;
+		Position = teleportCoordinate;
 	}
 
 	private void PlayAnimations()

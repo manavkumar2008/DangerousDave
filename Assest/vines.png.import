@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu7klqb6a8wro"
-path="res://.godot/imported/dave4.png-f5a45eb6e6c921020fabdedea7349ca2.ctex"
+uid="uid://cbfgnmookhwna"
+path="res://.godot/imported/vines.png-51821e7e91a8e80654e11a1045c8742d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assest/dave4.png"
-dest_files=["res://.godot/imported/dave4.png-f5a45eb6e6c921020fabdedea7349ca2.ctex"]
+source_file="res://Assest/vines.png"
+dest_files=["res://.godot/imported/vines.png-51821e7e91a8e80654e11a1045c8742d.ctex"]
 
 [params]
 

@@ -1,8 +1,6 @@
-res://Scenes/dave.tscn
 res://Scenes/main.tscn
-res://Scenes/door.tscn
 res://Scenes/Camera.tscn
+res://Scenes/dave.tscn
 res://Scripts/Camera.cs
 res://Scripts/Dave.cs
-res://Scripts/Door.cs
 res://Scripts/main.cs
