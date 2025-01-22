@@ -10,6 +10,7 @@ public partial class Dave : CharacterBody2D
 	private AnimatedSprite2D animatedSprite;
 	private Area2D area2d;
 	private TileMap tilemap;
+	private int score;
 	
 	[Export]
 	private int speed = 110;
@@ -24,6 +25,7 @@ public partial class Dave : CharacterBody2D
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		area2d = GetNode<Area2D>("Area2D");
 		tilemap = GetNode<TileMap>("/root/Main/TileMap");
+		score = 0;
 	}
 
 	private void Move()
@@ -62,7 +64,19 @@ public partial class Dave : CharacterBody2D
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 0)))
 		{
 			OnProceedingToNextLevel((Vector2)tilemap.GetCellTileData(0,tileCoordinate).GetCustomData("Teleport"));
+			return;
 		}
+		
+		CheckForCollectibles(tileCoordinate);
+	}
+
+	private void CheckForCollectibles(Vector2I coordinate)
+	{
+		Vector2I tileAtlasCoords = tilemap.GetCellAtlasCoords(0, coordinate);
+		if (tileAtlasCoords.Y != 5 && tileAtlasCoords.X >= 5) return;
+
+		score += (int)tilemap.GetCellTileData(0, coordinate).GetCustomData("Score");
+		tilemap.SetCell(0, coordinate);
 	}
 
 	private void OnProceedingToNextLevel(Vector2 teleportCoordinate)
