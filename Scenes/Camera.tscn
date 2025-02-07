@@ -5,7 +5,7 @@
 [node name="Camera" type="Camera2D"]
 zoom = Vector2(3.6, 4.05)
 script = ExtResource("1_o2yxg")
-positions = PackedVector2Array(160, 80, 496, 80, 736, 80, 976, 80)
+positions = PackedVector2Array(160, 80, 496, 80, 736, 80, 976, 80, 1312, 80, 1552, 80, 1792, 80, 2032, 80, 2272, 80)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(239.378, 3)

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dekpj1yv6t6s2"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_hakha"]
+[ext_resource type="Texture2D" uid="uid://bc7rqomyp1x7u" path="res://Assest/monster.png" id="2_in0y3"]
+[ext_resource type="PackedScene" uid="uid://y6c71f0oyv8u" path="res://Scenes/health.tscn" id="3_peyt0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trpcm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_in0y3")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_hakha")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.681818)
+sprite_frames = SubResource("SpriteFrames_trpcm")
+animation = &"1"
+
+[node name="Health" parent="." instance=ExtResource("3_peyt0")]
+position = Vector2(1608.25, 70.5043)
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

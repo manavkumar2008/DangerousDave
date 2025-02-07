@@ -3,6 +3,7 @@ using System;
 using System.Data.Common;
 using System.Runtime.Intrinsics.X86;
 using System.Xml.Linq;
+using GodotPlugins.Game;
 
 public partial class Dave : CharacterBody2D
 {
@@ -11,6 +12,10 @@ public partial class Dave : CharacterBody2D
 	private Area2D area2d;
 	private TileMap tilemap;
 	private int score;
+	private bool hasTrophy;
+	private Vector2 lastCheckpoint;
+	
+	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
 	
 	[Export]
 	private int speed = 110;
@@ -26,6 +31,7 @@ public partial class Dave : CharacterBody2D
 		area2d = GetNode<Area2D>("Area2D");
 		tilemap = GetNode<TileMap>("/root/Main/TileMap");
 		score = 0;
+		hasTrophy = false;
 	}
 
 	private void Move()
@@ -49,8 +55,13 @@ public partial class Dave : CharacterBody2D
 		{
 			velocity.Y = 0;
 		}
-	}
 
+		if (Input.IsActionJustPressed("shoot"))
+		{
+			SpawnBullet();
+		}
+	}
+	
 	private void Gravity(double delta)
 	{
 		if(!IsOnFloor()&&velocity.Y<terminalYVelocity) 
@@ -67,21 +78,46 @@ public partial class Dave : CharacterBody2D
 			return;
 		}
 		
+		if(tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(4, 1)))
+		{
+			hasTrophy = true;
+			tilemap.SetCell(0, tileCoordinate);
+			return;
+		}
+		
 		CheckForCollectibles(tileCoordinate);
 	}
 
 	private void CheckForCollectibles(Vector2I coordinate)
 	{
 		Vector2I tileAtlasCoords = tilemap.GetCellAtlasCoords(0, coordinate);
-		if (tileAtlasCoords.Y != 5 && tileAtlasCoords.X >= 5) return;
-
+		if (!(tileAtlasCoords.Y == 5 && tileAtlasCoords.X >= 5)) return;
+		
 		score += (int)tilemap.GetCellTileData(0, coordinate).GetCustomData("Score");
 		tilemap.SetCell(0, coordinate);
 	}
 
 	private void OnProceedingToNextLevel(Vector2 teleportCoordinate)
 	{
-		Position = teleportCoordinate;
+		if(hasTrophy)
+		{
+			Position = teleportCoordinate;
+			lastCheckpoint = teleportCoordinate;
+			hasTrophy = false;
+		}
+	}
+
+	public void OnDamage()
+	{
+		Position = lastCheckpoint;
+	}
+
+	private void SpawnBullet()
+	{
+		Bullet bullet = bulletScene.Instantiate<Bullet>();
+		bullet.Position = animatedSprite.GlobalPosition;
+		bullet.Spawner = this;
+		GetParent().AddChild(bullet);
 	}
 
 	private void PlayAnimations()

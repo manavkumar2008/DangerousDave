@@ -1,6 +1,14 @@
+res://Scripts/Bullet.cs
+res://Scripts/Camera.cs
+res://Scripts/Dave.cs
+res://Scripts/Enemy.cs
+res://Scripts/EnemyCollider.cs
+res://Scripts/Health.cs
+res://Scripts/main.cs
+res://Scripts/PathFollow2D.cs
+res://Scenes/bullet.tscn
 res://Scenes/dave.tscn
 res://Scenes/main.tscn
 res://Scenes/Camera.tscn
-res://Scripts/Camera.cs
-res://Scripts/Dave.cs
-res://Scripts/main.cs
+res://Scenes/health.tscn
+res://Scenes/enemy.tscn

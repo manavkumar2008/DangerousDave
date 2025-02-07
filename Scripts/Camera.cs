@@ -40,13 +40,11 @@ public partial class Camera : Camera2D
 
 		if (dave.Position.X > nextCameraPositionXMidPoint)
 		{
-			//Position = positions[currentCameraPositionIndex+1];
 			currentCameraPositionIndex++;
 			isCameraTransitioning = true;
 		}
 		else if(dave.Position.X < backCameraPositionXMidPoint)
 		{
-			//Position = positions[currentCameraPositionIndex - 1];
 			currentCameraPositionIndex--;
 			isCameraTransitioning = true;
 		}

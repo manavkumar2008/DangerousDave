@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://polly8rtyrv6"]
+[gd_scene load_steps=12 format=3 uid="uid://polly8rtyrv6"]
 
 [ext_resource type="Script" path="res://Scripts/Dave.cs" id="1_qtpq6"]
+[ext_resource type="PackedScene" uid="uid://y6c71f0oyv8u" path="res://Scenes/health.tscn" id="3_uw5qr"]
 [ext_resource type="Texture2D" uid="uid://c5sefyw6hbj4f" path="res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png" id="5_l07ac"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvrnr"]
@@ -90,5 +91,8 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_8f1ap")
 metadata/_edit_lock_ = true
+
+[node name="Health" parent="." instance=ExtResource("3_uw5qr")]
+lives = 4
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="OnBodyShapeEntered"]
