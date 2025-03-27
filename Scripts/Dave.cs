@@ -13,6 +13,8 @@ public partial class Dave : CharacterBody2D
 	private TileMap tilemap;
 	private int score;
 	private bool hasTrophy;
+	private bool isNotWalking;
+	private int jetpack;
 	private Vector2 lastCheckpoint;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
@@ -32,10 +34,19 @@ public partial class Dave : CharacterBody2D
 		tilemap = GetNode<TileMap>("/root/Main/TileMap");
 		score = 0;
 		hasTrophy = false;
+		isNotWalking = false;
 	}
 
 	private void Move()
 	{
+		if (Input.IsActionJustPressed("deployjetpack")&&jetpack!=0)
+		{
+			velocity = Vector2.Zero;
+			isNotWalking = !isNotWalking;
+		}
+		
+		if(isNotWalking) return;
+		
 		if(Input.IsActionPressed("left"))
 		{
 			velocity.X = -speed;
@@ -61,10 +72,45 @@ public partial class Dave : CharacterBody2D
 			SpawnBullet();
 		}
 	}
+
+	private void fly()
+	{
+		if(!isNotWalking) return;
+		
+		if (jetpack == 0)
+		{
+			isNotWalking = false;
+			return;
+		}
+		
+		if(Input.IsActionPressed("left"))
+		{
+			velocity.X = -speed;
+		}else if(Input.IsActionPressed("right"))
+		{
+			velocity.X = speed;
+		}else if(Input.IsActionJustReleased("left") || Input.IsActionJustReleased("right"))
+		{
+			velocity.X = 0;
+		}
+
+		if (Input.IsActionJustPressed("jump"))
+		{
+			velocity.Y = -speed;
+		}else if (Input.IsActionJustPressed("down"))
+		{
+			velocity.Y = speed;
+		}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
+		{
+			velocity.Y = 0;
+		}
+
+		jetpack--;
+	}
 	
 	private void Gravity(double delta)
 	{
-		if(!IsOnFloor()&&velocity.Y<terminalYVelocity) 
+		if(!IsOnFloor()&&velocity.Y<terminalYVelocity&&!isNotWalking) 
 			velocity.Y += (float)delta * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	}
 
@@ -81,6 +127,13 @@ public partial class Dave : CharacterBody2D
 		if(tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(4, 1)))
 		{
 			hasTrophy = true;
+			tilemap.SetCell(0, tileCoordinate);
+			return;
+		}
+
+		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(7, 0)))
+		{
+			jetpack = 2000;
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -152,6 +205,7 @@ public partial class Dave : CharacterBody2D
 
 		PlayAnimations();
 		
+		fly();
 		MoveAndSlide();
 		Velocity = velocity;
 	}
