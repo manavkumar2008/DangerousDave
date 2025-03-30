@@ -4,7 +4,7 @@ using System;
 public partial class Bullet : AnimatedSprite2D
 {
 
-	private int speed = 88;
+	public int speed = 88;
 	public Vector2 velocity = new Vector2(1,0);
 	public Node2D Spawner;
 	
@@ -21,12 +21,9 @@ public partial class Bullet : AnimatedSprite2D
 
 	private void OnAreaEntered(Area2D area)
 	{
-		if(area.HasNode("Health") && !(area.GetParent().Equals(Spawner)||area.Equals(Spawner)))
+		if(area.HasNode("Health") && !(area.GetParent().Name == Spawner.Name || area.Name == Spawner.Name))
 		{
 			area.GetNode("Health").Call("Damage");
-			QueueFree();
-		}else if (area.GetParent() is Bullet)
-		{
 			QueueFree();
 		}
 	}

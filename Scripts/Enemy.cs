@@ -5,9 +5,11 @@ using Microsoft.VisualBasic;
 
 public partial class Enemy : Area2D
 {
-	[Export] private int type = 1;
+	[Export] 
+	private int type = 1;
 	[Export]
 	private float[] progress = Array.Empty<float>();
+	
 	private Dave dave;
 
 	private PackedScene BulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Data.Common;
+using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Xml.Linq;
 using GodotPlugins.Game;
@@ -16,6 +17,8 @@ public partial class Dave : CharacterBody2D
 	private bool isNotWalking;
 	private int jetpack;
 	private Vector2 lastCheckpoint;
+	private bool isOnTree;
+	private bool hasGun;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
 	
@@ -26,6 +29,12 @@ public partial class Dave : CharacterBody2D
 	[Export]
 	private float jump = 100;
 	
+	private Vector2I[] treeTiles =
+	{
+		new Vector2I(9, 3), new Vector2I(10, 3), new Vector2I(11, 3), new Vector2I(10, 4), 
+		new Vector2I(11, 4), new Vector2I(12, 4), new Vector2I(4,5)
+	};
+	
 	public override void _Ready()
 	{
 		velocity = Velocity;
@@ -35,17 +44,19 @@ public partial class Dave : CharacterBody2D
 		score = 0;
 		hasTrophy = false;
 		isNotWalking = false;
+		isOnTree = false;
+		hasGun = false;
+
+		Engine.MaxFps = 60;
 	}
 
 	private void Move()
 	{
-		if (Input.IsActionJustPressed("deployjetpack")&&jetpack!=0)
+		if (Input.IsActionJustPressed("deployjetpack")&&jetpack!=0&&!isOnTree)
 		{
 			velocity = Vector2.Zero;
 			isNotWalking = !isNotWalking;
 		}
-		
-		if(isNotWalking) return;
 		
 		if(Input.IsActionPressed("left"))
 		{
@@ -57,6 +68,45 @@ public partial class Dave : CharacterBody2D
 		{
 			velocity.X = 0;
 		}
+
+		if (isOnTree)
+		{
+			velocity.Y = 0f;
+			if (Input.IsActionPressed("jump"))
+			{
+				velocity.Y = -speed;
+			}else if (Input.IsActionPressed("down"))
+			{
+				velocity.Y = speed;
+			}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
+			{
+				velocity.Y = 0;
+			}
+		}
+
+		if (isNotWalking)
+		{
+			if (jetpack == 0)
+			{
+				isNotWalking = false;
+				return;
+			}
+			
+			if (Input.IsActionJustPressed("jump"))
+			{
+				velocity.Y = -speed;
+			}else if (Input.IsActionJustPressed("down"))
+			{
+				velocity.Y = speed;
+			}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
+			{
+				velocity.Y = 0;
+			}
+
+			jetpack--;
+		}
+		
+		if(isOnTree||isNotWalking) return;
 		
 		if(Input.IsActionPressed("jump")&&IsOnFloor())
 		{ 
@@ -67,50 +117,15 @@ public partial class Dave : CharacterBody2D
 			velocity.Y = 0;
 		}
 
-		if (Input.IsActionJustPressed("shoot"))
+		if (Input.IsActionJustPressed("shoot")&&hasGun)
 		{
 			SpawnBullet();
 		}
 	}
-
-	private void fly()
-	{
-		if(!isNotWalking) return;
-		
-		if (jetpack == 0)
-		{
-			isNotWalking = false;
-			return;
-		}
-		
-		if(Input.IsActionPressed("left"))
-		{
-			velocity.X = -speed;
-		}else if(Input.IsActionPressed("right"))
-		{
-			velocity.X = speed;
-		}else if(Input.IsActionJustReleased("left") || Input.IsActionJustReleased("right"))
-		{
-			velocity.X = 0;
-		}
-
-		if (Input.IsActionJustPressed("jump"))
-		{
-			velocity.Y = -speed;
-		}else if (Input.IsActionJustPressed("down"))
-		{
-			velocity.Y = speed;
-		}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
-		{
-			velocity.Y = 0;
-		}
-
-		jetpack--;
-	}
 	
 	private void Gravity(double delta)
 	{
-		if(!IsOnFloor()&&velocity.Y<terminalYVelocity&&!isNotWalking) 
+		if(!IsOnFloor()&&velocity.Y<terminalYVelocity&&!isNotWalking&&!isOnTree) 
 			velocity.Y += (float)delta * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	}
 
@@ -137,8 +152,32 @@ public partial class Dave : CharacterBody2D
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
+
+		if (treeTiles.Contains(tilemap.GetCellAtlasCoords(0, tileCoordinate)))
+		{
+			if (IsOnFloor()) return;
+			isOnTree = true;
+			return;
+		}
+
+		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 2)))
+		{
+			hasGun = true;
+			tilemap.SetCell(0, tileCoordinate);
+			return;
+		}
 		
 		CheckForCollectibles(tileCoordinate);
+	}
+
+	private void OnBodyShapeExited(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
+	{
+		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
+		
+		if (treeTiles.Contains(tilemap.GetCellAtlasCoords(0, tileCoordinate)))
+		{
+			isOnTree = false;
+		}
 	}
 
 	private void CheckForCollectibles(Vector2I coordinate)
@@ -205,7 +244,6 @@ public partial class Dave : CharacterBody2D
 
 		PlayAnimations();
 		
-		fly();
 		MoveAndSlide();
 		Velocity = velocity;
 	}
