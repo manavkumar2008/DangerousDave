@@ -12,6 +12,7 @@ public partial class Dave : CharacterBody2D
 	private AnimatedSprite2D animatedSprite;
 	private Area2D area2d;
 	private TileMap tilemap;
+	private Camera camera;
 	private int score;
 	private bool hasTrophy;
 	private bool isNotWalking;
@@ -19,6 +20,7 @@ public partial class Dave : CharacterBody2D
 	private Vector2 lastCheckpoint;
 	private bool isOnTree;
 	private bool hasGun;
+	private int currentLevelFirstCameraPositionIndex;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
 	
@@ -28,6 +30,8 @@ public partial class Dave : CharacterBody2D
 	private float terminalYVelocity = 170;
 	[Export]
 	private float jump = 100;
+	
+	public bool isDoingLevelTransition;
 	
 	private Vector2I[] treeTiles =
 	{
@@ -41,13 +45,14 @@ public partial class Dave : CharacterBody2D
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		area2d = GetNode<Area2D>("Area2D");
 		tilemap = GetNode<TileMap>("/root/Main/TileMap");
+		camera = GetNode<Camera>("/root/Main/Camera");
 		score = 0;
 		hasTrophy = false;
 		isNotWalking = false;
 		isOnTree = false;
 		hasGun = false;
-
-		Engine.MaxFps = 60;
+		isDoingLevelTransition = false;
+		currentLevelFirstCameraPositionIndex = 0;
 	}
 
 	private void Move()
@@ -131,11 +136,14 @@ public partial class Dave : CharacterBody2D
 
 	private void OnBodyShapeEntered(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
 	{
+		if(isDoingLevelTransition) return;
 		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
 
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 0)))
 		{
-			OnProceedingToNextLevel((Vector2)tilemap.GetCellTileData(0,tileCoordinate).GetCustomData("Teleport"));
+			TileData tileData = tilemap.GetCellTileData(0, tileCoordinate);
+			OnProceedingToNextLevel((Vector2)tileData.GetCustomData("Teleport"));
+			currentLevelFirstCameraPositionIndex = (int)tileData.GetCustomData("CameraIndex");
 			return;
 		}
 		
@@ -166,6 +174,12 @@ public partial class Dave : CharacterBody2D
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
+
+		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(10, 2)))
+		{
+			Teleport((Vector2)tilemap.GetCellTileData(0, tileCoordinate).GetCustomData("Teleport"));
+			return;
+		}
 		
 		CheckForCollectibles(tileCoordinate);
 	}
@@ -189,14 +203,41 @@ public partial class Dave : CharacterBody2D
 		tilemap.SetCell(0, coordinate);
 	}
 
+	private void DoLevelTransition()
+	{
+		if (!isDoingLevelTransition) return;
+
+		camera.DoLevelTransition();
+		
+		animatedSprite.FlipH = false;
+		animatedSprite.Play("WALK");
+		
+		Position = Position.MoveToward(new Vector2(321, -184), 1);
+		
+		if(Position.Equals(new Vector2(321, -184)))
+		{
+			isDoingLevelTransition = false;
+			camera.CompleteLevelTransition(currentLevelFirstCameraPositionIndex);
+			Position = lastCheckpoint;
+		}
+	}
+	
 	private void OnProceedingToNextLevel(Vector2 teleportCoordinate)
 	{
 		if(hasTrophy)
 		{
-			Position = teleportCoordinate;
+			isDoingLevelTransition = true;
 			lastCheckpoint = teleportCoordinate;
 			hasTrophy = false;
+			hasGun = false;
+			velocity = Vector2.Zero;
+			Position = new Vector2(27, -184);
 		}
+	}
+	
+	private void Teleport(Vector2 teleportCoordinate)
+	{
+		Position = teleportCoordinate;
 	}
 
 	public void OnDamage()
@@ -208,7 +249,10 @@ public partial class Dave : CharacterBody2D
 	{
 		Bullet bullet = bulletScene.Instantiate<Bullet>();
 		bullet.Position = animatedSprite.GlobalPosition;
+		bullet.FlipH = animatedSprite.FlipH;
+		bullet.velocity = animatedSprite.FlipH ? new Vector2(-1, 0) : new Vector2(1, 0);
 		bullet.Spawner = this;
+		
 		GetParent().AddChild(bullet);
 	}
 
@@ -239,10 +283,13 @@ public partial class Dave : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Move();
-		Gravity(delta);	
-
-		PlayAnimations();
+		if(!isDoingLevelTransition)
+		{
+			Move();
+			Gravity(delta);	
+			PlayAnimations();
+		}
+		DoLevelTransition();
 		
 		MoveAndSlide();
 		Velocity = velocity;

@@ -27,4 +27,6 @@ animation = &"1"
 [node name="Health" parent="." instance=ExtResource("3_peyt0")]
 position = Vector2(1608.25, 70.5043)
 
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]

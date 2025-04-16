@@ -2,26 +2,35 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 public partial class Camera : Camera2D
 {
 	private Dave dave;
 	
 	[Export]
-	private Vector2[] positions = Array.Empty<Vector2>();
+	public Vector2[] positions = Array.Empty<Vector2>();
+	[Export]
+	public Vector2 TransitionLevelPosition = new Vector2(160, -192);
 	
-	int cameraTransitionSpeed = 20;
-	int currentCameraPositionIndex = 0;
-	bool isCameraTransitioning = false;
+	float cameraTransitionSpeed;
+	private int currentCameraPositionIndex;
+	private bool isCameraTransitioning;
+	private bool isLevelTransitioning;
 	
 	public override void _Ready()
 	{
 		dave = GetNode<Dave>("/root/Main/Dave");
+		ProcessMode = ProcessModeEnum.Always;
+		currentCameraPositionIndex = 0;
+		isCameraTransitioning = false;
+		isLevelTransitioning = false;
+		cameraTransitionSpeed = 1f;
 	}
 	
 	private void UpdateCameraPosition()
 	{
-		if(isCameraTransitioning) return;
+		if(isCameraTransitioning||isLevelTransitioning) return;
 		
 		float nextCameraPositionXMidPoint;
 		float backCameraPositionXMidPoint;
@@ -50,13 +59,26 @@ public partial class Camera : Camera2D
 		}
 	}
 
+	public void DoLevelTransition()
+	{
+		isLevelTransitioning = true;
+		Position = TransitionLevelPosition;
+	}
+
+	public void CompleteLevelTransition(int levelFirstCameraPositionIndex)
+	{
+		currentCameraPositionIndex = levelFirstCameraPositionIndex;
+		Position = positions[levelFirstCameraPositionIndex];
+		isLevelTransitioning = false;
+	}
+	
 	private void DoCameraTransition()
 	{
-		if(!isCameraTransitioning) return;
+		if(!isCameraTransitioning||isLevelTransitioning) return;
 		
 		Position = Position.MoveToward(positions[currentCameraPositionIndex], cameraTransitionSpeed);
 		
-		if(Position.Equals(positions[currentCameraPositionIndex]))
+		if(Position.DistanceTo(positions[currentCameraPositionIndex])<0.5f)
 			isCameraTransitioning = false;
 	}
 	
