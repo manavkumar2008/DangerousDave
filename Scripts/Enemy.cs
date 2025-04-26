@@ -20,7 +20,7 @@ public partial class Enemy : Area2D
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		sprite.Play(type.ToString());
-		dave = GetNode<Dave>("/root/Main/Dave");
+		dave = GetNode<Dave>("/root/Node/Main/Dave");
 	}
 
 	private void OnBodyEntered(Node2D body)

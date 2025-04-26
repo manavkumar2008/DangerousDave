@@ -13,19 +13,19 @@ public partial class Camera : Camera2D
 	[Export]
 	public Vector2 TransitionLevelPosition = new Vector2(160, -192);
 	
-	float cameraTransitionSpeed;
+	[Export]
+	int cameraTransitionSpeed = 8;
 	private int currentCameraPositionIndex;
 	private bool isCameraTransitioning;
 	private bool isLevelTransitioning;
 	
 	public override void _Ready()
 	{
-		dave = GetNode<Dave>("/root/Main/Dave");
+		dave = GetNode<Dave>("/root/Node/Main/Dave");
 		ProcessMode = ProcessModeEnum.Always;
 		currentCameraPositionIndex = 0;
 		isCameraTransitioning = false;
 		isLevelTransitioning = false;
-		cameraTransitionSpeed = 1f;
 	}
 	
 	private void UpdateCameraPosition()

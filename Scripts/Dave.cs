@@ -13,10 +13,10 @@ public partial class Dave : CharacterBody2D
 	private Area2D area2d;
 	private TileMap tilemap;
 	private Camera camera;
-	private int score;
+	private Main main;
 	private bool hasTrophy;
 	private bool isNotWalking;
-	private int jetpack;
+	public int jetpack;
 	private Vector2 lastCheckpoint;
 	private bool isOnTree;
 	private bool hasGun;
@@ -44,13 +44,14 @@ public partial class Dave : CharacterBody2D
 		velocity = Velocity;
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		area2d = GetNode<Area2D>("Area2D");
-		tilemap = GetNode<TileMap>("/root/Main/TileMap");
-		camera = GetNode<Camera>("/root/Main/Camera");
-		score = 0;
+		tilemap = GetNode<TileMap>("/root/Node/Main/TileMap");
+		camera = GetNode<Camera>("/root/Node/Main/Camera");
+		main = GetParent<Main>();
 		hasTrophy = false;
 		isNotWalking = false;
 		isOnTree = false;
 		hasGun = false;
+		jetpack = 0;
 		isDoingLevelTransition = false;
 		currentLevelFirstCameraPositionIndex = 0;
 	}
@@ -150,6 +151,7 @@ public partial class Dave : CharacterBody2D
 		if(tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(4, 1)))
 		{
 			hasTrophy = true;
+			main.UpdateTrophieStatus();
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -157,6 +159,7 @@ public partial class Dave : CharacterBody2D
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(7, 0)))
 		{
 			jetpack = 2000;
+			main.UpdateJetpackStatus(true);
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -171,6 +174,7 @@ public partial class Dave : CharacterBody2D
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 2)))
 		{
 			hasGun = true;
+			main.UpdateGunStatus(hasGun);
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -199,7 +203,8 @@ public partial class Dave : CharacterBody2D
 		Vector2I tileAtlasCoords = tilemap.GetCellAtlasCoords(0, coordinate);
 		if (!(tileAtlasCoords.Y == 5 && tileAtlasCoords.X >= 5)) return;
 		
-		score += (int)tilemap.GetCellTileData(0, coordinate).GetCustomData("Score");
+		main.UpdateScore((int)tilemap.GetCellTileData(0, coordinate).GetCustomData("Score"));
+		
 		tilemap.SetCell(0, coordinate);
 	}
 
@@ -231,6 +236,7 @@ public partial class Dave : CharacterBody2D
 			hasTrophy = false;
 			hasGun = false;
 			velocity = Vector2.Zero;
+			main.UpdateLevel();
 			Position = new Vector2(27, -184);
 		}
 	}

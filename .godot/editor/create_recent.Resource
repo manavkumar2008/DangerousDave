@@ -1,2 +1,3 @@
+FontFile
 CanvasTexture
 CompressedTexture2D
