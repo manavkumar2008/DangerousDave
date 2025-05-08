@@ -7,10 +7,11 @@ public partial class Bullet : AnimatedSprite2D
 	public int speed = 88;
 	public Vector2 velocity = new Vector2(1,0);
 	public Node2D Spawner;
+	private Main main;
 	
 	public override void _Ready()
 	{
-		
+		main = (Main)GetParent();
 	}
 
 	private void OnBodyShapeEntered(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
@@ -24,6 +25,7 @@ public partial class Bullet : AnimatedSprite2D
 		if(area.HasNode("Health") && !(area.GetParent().Name == Spawner.Name || area.Name == Spawner.Name))
 		{
 			area.GetNode("Health").Call("Damage");
+			main.OnBulletHit();
 			QueueFree();
 		}
 	}

@@ -1,8 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1745657081
+::res://::1746444959
 icon.svg::CompressedTexture2D::3625229683807272301::1736240536::1736240546::1::::<><>::
 README.md::TextFile::-1::1737199842::0::1::::<><>::
-::res://Assest/::1745658367
+::res://Assest/::1746262855
 blue.png::CompressedTexture2D::8162502051534285089::1737292664::1737292664::1::::<><>::
 DavesHud.png::CompressedTexture2D::2051164865390561771::1745408215::1745408934::1::::<><>::
 DDNumbers.png::FontFile::4272370509408768898::1744890332::1744890698::1::::<><>::
@@ -23,23 +23,35 @@ Silverbar.png::CompressedTexture2D::9072627702699899736::1745417439::1745419756:
 tiles.png::CompressedTexture2D::6721757054334886582::1737292664::1737292664::1::::<><>::
 Title.png::CompressedTexture2D::2282340968867360239::1745658274::1745658396::1::::<><>::
 vines.png::CompressedTexture2D::4853740269629119658::1737292664::1737292664::1::::<><>::
-::res://Scenes/::1745657685
-bullet.tscn::PackedScene::7821526408154265053::1745657685::0::1::::<><>::uid://dxihjdv84js0v::::res://Assest/Screenshot 2025-01-24 134152.png<>res://Scripts/Bullet.cs
+::res://Assest/sounds/::1746346704
+climbing.wav::AudioStreamWAV::6702138780978136115::1746254679::1746262863::1::::<><>::
+death.wav::AudioStreamWAV::5114414337112969946::1746193414::1746262863::1::::<><>::
+footstep.wav::AudioStreamWAV::2427461456098460811::1746107154::1746262863::1::::<><>::
+hit.wav::AudioStreamWAV::3973441356983452455::1746253828::1746262863::1::::<><>::
+jetpack_humming.wav::AudioStreamWAV::9004605482527256750::1746253278::1746262863::1::::<><>::
+jump.wav::AudioStreamWAV::1522409203713112525::1746107763::1746262913::1::::<><>::
+pickup.wav::AudioStreamWAV::9185553551882152613::1746191933::1746262863::1::::<><>::
+special_pickup.wav::AudioStreamWAV::7435199571034203972::1746193629::1746262863::1::::<><>::
+TRANSITION.wav::AudioStreamWAV::3460396354536281772::1746346647::1746346704::1::::<><>::
+transition_door.wav::AudioStreamWAV::1916654251721807239::1746108388::1746262863::1::::<><>::
+trophie.wav::AudioStreamWAV::9101028139729426085::1746192246::1746262863::1::::<><>::
+::res://Scenes/::1746370373
+bullet.tscn::PackedScene::7821526408154265053::1746370373::0::1::::<><>::uid://dxihjdv84js0v::::res://Assest/Screenshot 2025-01-24 134152.png<>res://Scripts/Bullet.cs
 Camera.tscn::PackedScene::7401985452363847841::1743339454::0::1::::<><>::res://Scripts/Camera.cs
-dave.tscn::PackedScene::1082422786118413053::1745657685::0::1::::<><>::res://Scripts/Dave.cs<>uid://y6c71f0oyv8u::::res://Scenes/health.tscn<>uid://c5sefyw6hbj4f::::res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png
-enemy.tscn::PackedScene::7461589433887434787::1745657685::0::1::::<><>::res://Scripts/Enemy.cs<>uid://bc7rqomyp1x7u::::res://Assest/monster.png<>uid://y6c71f0oyv8u::::res://Scenes/health.tscn
+dave.tscn::PackedScene::1082422786118413053::1746370373::0::1::::<><>::res://Scripts/Dave.cs<>uid://y6c71f0oyv8u::::res://Scenes/health.tscn<>uid://c5sefyw6hbj4f::::res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png
+enemy.tscn::PackedScene::7461589433887434787::1746370373::0::1::::<><>::res://Scripts/Enemy.cs<>uid://bc7rqomyp1x7u::::res://Assest/monster.png<>uid://y6c71f0oyv8u::::res://Scenes/health.tscn
 health.tscn::PackedScene::1748707911565808714::1743339446::0::1::::<><>::res://Scripts/Health.cs
-main.tscn::PackedScene::2540789569292753848::1745657685::0::1::::<><>::res://Scripts/Main.cs<>uid://c21cmei0mcyks::::res://Assest/tiles.png<>uid://doj8hl72aal18::::res://Assest/blue.png<>uid://polly8rtyrv6::::res://Scenes/dave.tscn<>res://Scripts/PathFollow2D.cs<>uid://ddptvbrqjyt3n::::res://Scenes/Camera.tscn<>uid://dekpj1yv6t6s2::::res://Scenes/enemy.tscn<>uid://cn3onpqhnd5ie::::res://Assest/ScoreHud.png<>uid://b14tk2yfsmpqg::::res://Assest/DDNumbers.png<>res://Scripts/CanvasLayer.cs<>uid://k22xcgwla23q::::res://Assest/LevelHud.png<>uid://4hund20ncemd::::res://Assest/DavesHud.png<>uid://c22l650ptxkc3::::res://Assest/Dhead.png<>uid://d2i338061nxka::::res://Assest/Silverbar.png<>uid://be8sa7u1pbf4u::::res://Assest/jetpackText.png<>uid://3nfxplqag2b3::::res://Assest/Dgunhud.png<>uid://dilwpohury5h5::::res://Assest/JetpackBarHUD.png<>uid://bv8b2373yimfl::::res://Assest/GoThruTheDoorTextHud.png<>uid://cbh3qc3p0wfru::::res://Assest/JetpackProgress.png
-main_menu.tscn::PackedScene::7956550357160259804::1745657685::0::1::::<><>::res://Scripts/ControlMainMenu.cs
+main.tscn::PackedScene::2540789569292753848::1746370373::0::1::::<><>::res://Scripts/Main.cs<>uid://c21cmei0mcyks::::res://Assest/tiles.png<>uid://doj8hl72aal18::::res://Assest/blue.png<>uid://polly8rtyrv6::::res://Scenes/dave.tscn<>res://Scripts/PathFollow2D.cs<>uid://ddptvbrqjyt3n::::res://Scenes/Camera.tscn<>uid://dekpj1yv6t6s2::::res://Scenes/enemy.tscn<>uid://cn3onpqhnd5ie::::res://Assest/ScoreHud.png<>uid://b14tk2yfsmpqg::::res://Assest/DDNumbers.png<>uid://bwu087n4flov4::::res://Assest/sounds/hit.wav<>res://Scripts/CanvasLayer.cs<>uid://k22xcgwla23q::::res://Assest/LevelHud.png<>uid://4hund20ncemd::::res://Assest/DavesHud.png<>uid://c22l650ptxkc3::::res://Assest/Dhead.png<>uid://d2i338061nxka::::res://Assest/Silverbar.png<>uid://be8sa7u1pbf4u::::res://Assest/jetpackText.png<>uid://3nfxplqag2b3::::res://Assest/Dgunhud.png<>uid://dilwpohury5h5::::res://Assest/JetpackBarHUD.png<>uid://bv8b2373yimfl::::res://Assest/GoThruTheDoorTextHud.png<>uid://cbh3qc3p0wfru::::res://Assest/JetpackProgress.png
+main_menu.tscn::PackedScene::7956550357160259804::1746370373::0::1::::<><>::res://Scripts/ControlMainMenu.cs<>uid://7rt27t2gbjb8::::res://Assest/Title.png
 Spider.tscn::PackedScene::8264378103750357243::1738057007::0::1::::<><>::uid://y6c71f0oyv8u
-::res://Scripts/::1745657323
-Bullet.cs::CSharpScript::-1::1743255389::0::1::::<><>::
-Camera.cs::CSharpScript::-1::1745477061::0::1::::<><>::
+::res://Scripts/::1746376064
+Bullet.cs::CSharpScript::-1::1746348610::0::1::::<><>::
+Camera.cs::CSharpScript::-1::1745659501::0::1::::<><>::
 CanvasLayer.cs::CSharpScript::-1::1745482937::0::1::::<><>::
 ControlMainMenu.cs::CSharpScript::-1::1745657323::0::1::::<><>::
-Dave.cs::CSharpScript::-1::1745566722::0::1::::<><>::
-Enemy.cs::CSharpScript::-1::1745477023::0::1::::<><>::
+Dave.cs::CSharpScript::-1::1746376064::0::1::::<><>::
+Enemy.cs::CSharpScript::-1::1746348136::0::1::::<><>::
 EnemyCollider.cs::CSharpScript::-1::1738056982::0::1::::<><>::
 Health.cs::CSharpScript::-1::1738929458::0::1::::<><>::
-Main.cs::CSharpScript::-1::1745567254::0::1::::<><>::
+Main.cs::CSharpScript::-1::1746371694::0::1::::<><>::
 PathFollow2D.cs::CSharpScript::-1::1743082540::0::1::::<><>::

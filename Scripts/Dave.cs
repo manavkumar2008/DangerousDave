@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Xml.Linq;
 using GodotPlugins.Game;
@@ -9,20 +11,33 @@ using GodotPlugins.Game;
 public partial class Dave : CharacterBody2D
 {
 	private Vector2 velocity;
-	private AnimatedSprite2D animatedSprite;
+	public AnimatedSprite2D animatedSprite;
 	private Area2D area2d;
 	private TileMap tilemap;
 	private Camera camera;
 	private Main main;
+	private AudioStreamPlayer audioStream;
+	private AudioStreamPlayer audioPlayerSpecial;
 	private bool hasTrophy;
-	private bool isNotWalking;
 	public int jetpack;
 	private Vector2 lastCheckpoint;
-	private bool isOnTree;
 	private bool hasGun;
 	private int currentLevelFirstCameraPositionIndex;
+	private bool isBulletPresent;
+	private int isOnTreeCooldown = 0;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
+	
+	private AudioStream jumpingSound = GD.Load<AudioStream>("res://Assest/sounds/jump.wav");
+	private AudioStream walkingSound = GD.Load<AudioStream>("res://Assest/sounds/footstep.wav");
+	private AudioStream climbingSound = GD.Load<AudioStream>("res://Assest/sounds/climbing.wav");
+	private AudioStream jetpackSound = GD.Load<AudioStream>("res://Assest/sounds/jetpack_humming.wav");
+	private AudioStream pickupSound = GD.Load<AudioStream>("res://Assest/sounds/pickup.wav");
+	private AudioStream specialPickupSound = GD.Load<AudioStream>("res://Assest/sounds/special_pickup.wav");
+	private AudioStream transitionSound = GD.Load<AudioStream>("res://Assest/sounds/TRANSITION.wav");
+	private AudioStream deathSound = GD.Load<AudioStream>("res://Assest/sounds/death.wav");
+	private AudioStream trophieSound = GD.Load<AudioStream>("res://Assest/sounds/trophie.wav");
+	
 	
 	[Export]
 	private int speed = 110;
@@ -36,9 +51,19 @@ public partial class Dave : CharacterBody2D
 	private Vector2I[] treeTiles =
 	{
 		new Vector2I(9, 3), new Vector2I(10, 3), new Vector2I(11, 3), new Vector2I(10, 4), 
-		new Vector2I(11, 4), new Vector2I(12, 4), new Vector2I(4,5)
+		new Vector2I(11, 4), new Vector2I(12, 4), new Vector2I(4,5), new Vector2I(8,4), new Vector2I(9,4),
 	};
-	
+
+	private enum MotionState
+	{
+		ONGROUND,
+		CLIMBING,
+		FLYING,
+		INAIR
+	}
+
+	private MotionState state;
+
 	public override void _Ready()
 	{
 		velocity = Velocity;
@@ -47,21 +72,76 @@ public partial class Dave : CharacterBody2D
 		tilemap = GetNode<TileMap>("/root/Node/Main/TileMap");
 		camera = GetNode<Camera>("/root/Node/Main/Camera");
 		main = GetParent<Main>();
+		audioStream = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		audioPlayerSpecial = GetNode<AudioStreamPlayer>("AudioStreamPlayer2");
 		hasTrophy = false;
-		isNotWalking = false;
-		isOnTree = false;
 		hasGun = false;
 		jetpack = 0;
 		isDoingLevelTransition = false;
 		currentLevelFirstCameraPositionIndex = 0;
+		isBulletPresent = false;
 	}
 
-	private void Move()
+	private void CheckForState()
 	{
-		if (Input.IsActionJustPressed("deployjetpack")&&jetpack!=0&&!isOnTree)
+		if(IsOnFloor() && state != MotionState.FLYING) state = MotionState.ONGROUND;
+		
+		if(!IsOnFloor() && state == MotionState.ONGROUND) state = MotionState.INAIR;
+		
+		if (Input.IsActionJustPressed("deployjetpack") && jetpack != 0)
 		{
-			velocity = Vector2.Zero;
-			isNotWalking = !isNotWalking;
+			if (state == MotionState.FLYING)
+				state = MotionState.INAIR;
+			else
+			{
+				velocity = Vector2.Zero;
+				state = MotionState.FLYING;
+			}
+		}
+	}
+
+	private void MoveOnGround()
+	{
+		if(Input.IsActionPressed("left"))
+		{
+			velocity.X = -speed;
+		}else if(Input.IsActionPressed("right"))
+		{
+			velocity.X = speed;
+		}else if(Input.IsActionJustReleased("left") || Input.IsActionJustReleased("right"))
+		{
+			velocity.X = 0;
+		}
+		
+		if(Input.IsActionPressed("jump"))
+		{ 
+			velocity.Y = -jump;
+		}
+		
+		if (Input.IsActionJustPressed("shoot")&&hasGun)
+		{
+			if(!isBulletPresent)
+				SpawnBullet();
+		}
+	}
+
+	private void MoveWhileFlying()
+	{
+		if (jetpack == 0)
+		{
+			state = MotionState.INAIR;
+			return;
+		}
+			
+		if (Input.IsActionJustPressed("jump"))
+		{
+			velocity.Y = -speed;
+		}else if (Input.IsActionJustPressed("down"))
+		{
+			velocity.Y = speed;
+		}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
+		{
+			velocity.Y = 0;
 		}
 		
 		if(Input.IsActionPressed("left"))
@@ -75,63 +155,161 @@ public partial class Dave : CharacterBody2D
 			velocity.X = 0;
 		}
 
-		if (isOnTree)
-		{
-			velocity.Y = 0f;
-			if (Input.IsActionPressed("jump"))
-			{
-				velocity.Y = -speed;
-			}else if (Input.IsActionPressed("down"))
-			{
-				velocity.Y = speed;
-			}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
-			{
-				velocity.Y = 0;
-			}
-		}
+		jetpack--;
+	}
 
-		if (isNotWalking)
+	private void MoveWhileClimbing()
+	{
+		velocity.Y = 0f;
+		if (Input.IsActionPressed("jump"))
 		{
-			if (jetpack == 0)
-			{
-				isNotWalking = false;
-				return;
-			}
-			
-			if (Input.IsActionJustPressed("jump"))
-			{
-				velocity.Y = -speed;
-			}else if (Input.IsActionJustPressed("down"))
-			{
-				velocity.Y = speed;
-			}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
-			{
-				velocity.Y = 0;
-			}
-
-			jetpack--;
-		}
-		
-		if(isOnTree||isNotWalking) return;
-		
-		if(Input.IsActionPressed("jump")&&IsOnFloor())
-		{ 
-			velocity.Y = -jump;
-		}
-		if(IsOnCeilingOnly())
+			velocity.Y = -speed;
+		}else if (Input.IsActionPressed("down"))
+		{
+			velocity.Y = speed;
+		}else if (Input.IsActionJustReleased("jump") || Input.IsActionJustReleased("down"))
 		{
 			velocity.Y = 0;
 		}
 
+		velocity.X = 0f;
+		if(Input.IsActionPressed("left"))
+		{
+			velocity.X = -speed;
+		}else if(Input.IsActionPressed("right"))
+		{
+			velocity.X = speed;
+		}else if(Input.IsActionJustReleased("left") || Input.IsActionJustReleased("right"))
+		{
+			velocity.X = 0;
+		}
+	}
+
+	private void MoveWhileInAir()
+	{
+		if(Input.IsActionPressed("left"))
+		{
+			velocity.X = -speed;
+		}else if(Input.IsActionPressed("right"))
+		{
+			velocity.X = speed;
+		}else if(Input.IsActionJustReleased("left") || Input.IsActionJustReleased("right"))
+		{
+			velocity.X = 0;
+		}
+
+		if (IsOnCeilingOnly())
+			velocity.Y = 0f;
+		
 		if (Input.IsActionJustPressed("shoot")&&hasGun)
 		{
-			SpawnBullet();
+			if(!isBulletPresent)
+				SpawnBullet();
+		}
+	}
+
+	private void Move()
+	{
+		CheckForState();
+		switch (state)
+		{
+			case MotionState.ONGROUND:
+				MoveOnGround();
+				break;
+			case MotionState.CLIMBING:
+				MoveWhileClimbing();
+				break;
+			case MotionState.FLYING:
+				MoveWhileFlying();
+				break;
+			case MotionState.INAIR:
+				MoveWhileInAir();
+				break;
+		}
+	}
+
+	private void PlayStreamInLoop(AudioStream stream)
+	{
+		if ((audioStream.Playing && audioStream.Stream == stream) || audioPlayerSpecial.Playing)
+			return;
+		audioStream.Stream = stream;
+		audioStream.Play();
+	}
+
+	private void PlaySpecialStream(AudioStream stream)
+	{
+		audioStream.Stop();
+		audioPlayerSpecial.Stream = stream;
+		audioPlayerSpecial.Play();
+	}
+
+	private void PlayAnimations()
+	{
+		switch (state)
+		{ 
+			case MotionState.ONGROUND:
+				if (velocity.X == 0)
+				{
+					animatedSprite.Play("IDLE");
+					audioStream.Stop();
+					break;
+				}
+				
+				if (velocity.X < 0)
+					animatedSprite.FlipH = true;
+				else if (velocity.X > 0)
+					animatedSprite.FlipH = false;
+				
+				animatedSprite.Play("WALK");
+				
+				PlayStreamInLoop(walkingSound);
+				break;
+			
+			case MotionState.CLIMBING:
+				if (velocity.X != 0 || velocity.Y != 0)
+				{
+					animatedSprite.Play("CLIMB");
+					PlayStreamInLoop(climbingSound);
+				}
+				else
+				{
+					animatedSprite.Play("CLIMB_IDLE");
+					audioStream.Stop();
+				}
+					
+				break;
+			
+			case MotionState.FLYING:
+				if (velocity.X < 0)
+					animatedSprite.FlipH = true;
+				else if (velocity.X > 0)
+					animatedSprite.FlipH = false;
+				
+				animatedSprite.Play("JETPACK");
+				PlayStreamInLoop(jetpackSound);
+				break;
+			
+			case MotionState.INAIR:
+				if (velocity.X < 0)
+					animatedSprite.FlipH = true;
+				else if (velocity.X > 0)
+					animatedSprite.FlipH = false;
+				
+				animatedSprite.Play("JUMP");
+				
+				if(velocity.Y < 0)
+					PlayStreamInLoop(jumpingSound);
+
+				if (audioStream.Stream != jumpingSound)
+					audioStream.Stop();
+				
+				break;
 		}
 	}
 	
 	private void Gravity(double delta)
 	{
-		if(!IsOnFloor()&&velocity.Y<terminalYVelocity&&!isNotWalking&&!isOnTree) 
+		if(velocity.Y<terminalYVelocity&&state == MotionState.INAIR) 
 			velocity.Y += (float)delta * ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	}
 
@@ -152,6 +330,7 @@ public partial class Dave : CharacterBody2D
 		{
 			hasTrophy = true;
 			main.UpdateTrophieStatus();
+			PlaySpecialStream(trophieSound);
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -160,14 +339,8 @@ public partial class Dave : CharacterBody2D
 		{
 			jetpack = 2000;
 			main.UpdateJetpackStatus(true);
+			PlaySpecialStream(specialPickupSound);
 			tilemap.SetCell(0, tileCoordinate);
-			return;
-		}
-
-		if (treeTiles.Contains(tilemap.GetCellAtlasCoords(0, tileCoordinate)))
-		{
-			if (IsOnFloor()) return;
-			isOnTree = true;
 			return;
 		}
 
@@ -175,6 +348,7 @@ public partial class Dave : CharacterBody2D
 		{
 			hasGun = true;
 			main.UpdateGunStatus(hasGun);
+			PlaySpecialStream(specialPickupSound);
 			tilemap.SetCell(0, tileCoordinate);
 			return;
 		}
@@ -188,13 +362,27 @@ public partial class Dave : CharacterBody2D
 		CheckForCollectibles(tileCoordinate);
 	}
 
-	private void OnBodyShapeExited(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
+	private void OnBodyShapeEnteredForTree(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
+	{
+		if(isDoingLevelTransition) return;
+		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
+		
+		if (treeTiles.Contains(tilemap.GetCellAtlasCoords(0, tileCoordinate)))
+		{
+			if (state == MotionState.ONGROUND || state == MotionState.FLYING) return;
+			state = MotionState.CLIMBING;
+		}
+	}
+
+	private void OnBodyShapeExitedForTree(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
 	{
 		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
 		
 		if (treeTiles.Contains(tilemap.GetCellAtlasCoords(0, tileCoordinate)))
 		{
-			isOnTree = false;
+			if (state == MotionState.ONGROUND || state == MotionState.FLYING) return;
+			state = MotionState.INAIR;
+			velocity.Y -= 10;
 		}
 	}
 
@@ -204,7 +392,7 @@ public partial class Dave : CharacterBody2D
 		if (!(tileAtlasCoords.Y == 5 && tileAtlasCoords.X >= 5)) return;
 		
 		main.UpdateScore((int)tilemap.GetCellTileData(0, coordinate).GetCustomData("Score"));
-		
+		PlaySpecialStream(pickupSound);
 		tilemap.SetCell(0, coordinate);
 	}
 
@@ -217,13 +405,14 @@ public partial class Dave : CharacterBody2D
 		animatedSprite.FlipH = false;
 		animatedSprite.Play("WALK");
 		
-		Position = Position.MoveToward(new Vector2(321, -184), 1);
+		Position = Position.MoveToward(new Vector2(321, -184), 0.78f);
 		
 		if(Position.Equals(new Vector2(321, -184)))
 		{
 			isDoingLevelTransition = false;
 			camera.CompleteLevelTransition(currentLevelFirstCameraPositionIndex);
 			Position = lastCheckpoint;
+			main.PauseGame();
 		}
 	}
 	
@@ -231,9 +420,11 @@ public partial class Dave : CharacterBody2D
 	{
 		if(hasTrophy)
 		{
+			PlaySpecialStream(transitionSound);
 			isDoingLevelTransition = true;
 			lastCheckpoint = teleportCoordinate;
 			hasTrophy = false;
+			jetpack = 0;
 			hasGun = false;
 			velocity = Vector2.Zero;
 			main.UpdateLevel();
@@ -249,6 +440,7 @@ public partial class Dave : CharacterBody2D
 	public void OnDamage()
 	{
 		Position = lastCheckpoint;
+		PlaySpecialStream(deathSound);
 	}
 
 	private void SpawnBullet()
@@ -258,33 +450,15 @@ public partial class Dave : CharacterBody2D
 		bullet.FlipH = animatedSprite.FlipH;
 		bullet.velocity = animatedSprite.FlipH ? new Vector2(-1, 0) : new Vector2(1, 0);
 		bullet.Spawner = this;
+		isBulletPresent = true;
+		bullet.ChildExitingTree += OnBulletDestruction;
 		
-		GetParent().AddChild(bullet);
+		main.AddChild(bullet);
 	}
 
-	private void PlayAnimations()
+	private void OnBulletDestruction(Node node)
 	{
-		if(Input.IsActionPressed("left"))
-		{
-			animatedSprite.FlipH = true; 
-		}else if(Input.IsActionPressed("right"))
-		{
-			animatedSprite.FlipH = false;
-		}
-
-		string animation = "IDLE";
-
-		if((Input.IsActionPressed("left")||Input.IsActionPressed("right"))&&IsOnFloor())
-		{
-			animation = "WALK";
-		}
-
-		if(Input.IsActionPressed("jump")||!IsOnFloor())
-		{
-			animation = "JUMP";
-		}
-
-		animatedSprite.Play(animation);
+		isBulletPresent = false;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -292,8 +466,9 @@ public partial class Dave : CharacterBody2D
 		if(!isDoingLevelTransition)
 		{
 			Move();
-			Gravity(delta);	
+			GD.Print(state.ToString());
 			PlayAnimations();
+			Gravity(delta);	
 		}
 		DoLevelTransition();
 		

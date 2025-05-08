@@ -35,6 +35,8 @@ shape = SubResource("RectangleShape2D_r2mgb")
 position = Vector2(-5.50976, 1.00113)
 scale = Vector2(1.55098, 0.799774)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="area_entered" from="Area2D" to="." method="OnAreaEntered"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="OnBodyShapeEntered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="ScreenExited"]

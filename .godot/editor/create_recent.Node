@@ -1,5 +1,9 @@
-AnimatedSprite2D
+HBoxContainer
+Label
 Button
+RichTextLabel
+AudioStreamPlayer
+AnimatedSprite2D
 VBoxContainer
 ColorRect
 Control
@@ -8,7 +12,6 @@ CanvasLayer
 CanvasGroup
 TextureRect
 TextureProgressBar
-Label
 MenuButton
 Panel
 AudioStreamPlayer2D

@@ -15,12 +15,14 @@ public partial class Enemy : Area2D
 	private PackedScene BulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
 	
 	AnimatedSprite2D sprite;
+	private Main main;
 	
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		sprite.Play(type.ToString());
 		dave = GetNode<Dave>("/root/Node/Main/Dave");
+		main = GetNode<Main>("/root/Node/Main");
 	}
 
 	private void OnBodyEntered(Node2D body)
@@ -53,7 +55,7 @@ public partial class Enemy : Area2D
 					bullet.velocity = new Vector2(1, 0);
 				}
 				
-				GetParent().GetParent().GetParent().AddChild(bullet);
+				main.AddChild(bullet);
 			}
 		}
 	}

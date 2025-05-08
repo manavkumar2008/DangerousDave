@@ -1,16 +1,44 @@
-[gd_scene load_steps=12 format=3 uid="uid://polly8rtyrv6"]
+[gd_scene load_steps=20 format=3 uid="uid://polly8rtyrv6"]
 
 [ext_resource type="Script" path="res://Scripts/Dave.cs" id="1_qtpq6"]
 [ext_resource type="PackedScene" uid="uid://y6c71f0oyv8u" path="res://Scenes/health.tscn" id="3_uw5qr"]
 [ext_resource type="Texture2D" uid="uid://c5sefyw6hbj4f" path="res://Assest/MS-DOS - Dangerous Dave - Dangerous Dave copy.png" id="5_l07ac"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8k6u"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(226, 1, 19, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgi6k"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(176, 1, 19, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6a0a"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(201, 1, 19, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_qvrnr"]
 atlas = ExtResource("5_l07ac")
 region = Rect2(1, 1, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1ejb"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(251, 1, 19, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8c0k"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(276, 1, 19, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vktsl"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(301, 1, 19, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsd8u"]
 atlas = ExtResource("5_l07ac")
 region = Rect2(126, 1, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gja8"]
+atlas = ExtResource("5_l07ac")
+region = Rect2(151, 1, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u3odd"]
 atlas = ExtResource("5_l07ac")
@@ -28,11 +56,50 @@ region = Rect2(26, 1, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_m8k6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgi6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6a0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgi6k")
+}],
+"loop": true,
+"name": &"CLIMB",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgi6k")
+}],
+"loop": true,
+"name": &"CLIMB_IDLE",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qvrnr")
 }],
 "loop": true,
 "name": &"IDLE",
-"speed": 5.0
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1ejb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8c0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vktsl")
+}],
+"loop": true,
+"name": &"JETPACK",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -40,6 +107,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"JUMP",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gja8")
+}],
+"loop": true,
+"name": &"STAND",
 "speed": 5.0
 }, {
 "frames": [{
@@ -57,7 +132,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"WALK",
-"speed": 6.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gexk"]
@@ -65,6 +140,9 @@ size = Vector2(8, 15.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8f1ap"]
 size = Vector2(10, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xlyy"]
+size = Vector2(16, 16)
 
 [node name="Dave" type="CharacterBody2D"]
 script = ExtResource("1_qtpq6")
@@ -74,7 +152,6 @@ texture_filter = 1
 scale = Vector2(1, 0.958333)
 sprite_frames = SubResource("SpriteFrames_yk2xd")
 animation = &"IDLE"
-frame_progress = 0.599171
 offset = Vector2(-6.96, 0)
 metadata/_edit_lock_ = true
 
@@ -94,6 +171,19 @@ metadata/_edit_lock_ = true
 
 [node name="Health" parent="." instance=ExtResource("3_uw5qr")]
 lives = 4
+metadata/_edit_lock_ = true
+
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(-7, 0)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("RectangleShape2D_4xlyy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 
 [connection signal="body_shape_entered" from="Area2D" to="." method="OnBodyShapeEntered"]
-[connection signal="body_shape_exited" from="Area2D" to="." method="OnBodyShapeExited"]
+[connection signal="body_shape_entered" from="Area2D2" to="." method="OnBodyShapeEnteredForTree"]
+[connection signal="body_shape_exited" from="Area2D2" to="." method="OnBodyShapeExitedForTree"]
