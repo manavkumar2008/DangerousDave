@@ -16,6 +16,7 @@ public partial class Main : Node2D
 	private TextureProgressBar jetpackBar;
 	private TextureRect scoreTexture;
 	private Label endingScoreLabel;
+	private Panel deathScreenPanel;
 	private Dave dave;
 	private AudioStreamPlayer audioPlayer;
 	private int score;
@@ -40,6 +41,7 @@ public partial class Main : Node2D
 		endingScoreLabel = GetNode<Label>("/root/Node/Main/Control/ScoreContainer/Score");
 		dave = GetNode<Dave>("/root/Node/Main/Dave");
 		audioPlayer = GetNode<AudioStreamPlayer>("/root/Node/Main/AudioStreamPlayer");
+		deathScreenPanel = GetNode<Panel>("/root/Node/CanvasLayer/Control/Panel");
 		gunRect.Visible = false;
 		jetpackRect.Visible = false;
 		goThruDoor.Visible = false;
@@ -85,6 +87,28 @@ public partial class Main : Node2D
 			dave.animatedSprite.Play("STAND");
 			blinkTimer = now;
 		}
+	}
+
+	public void OnDaveDamage()
+	{
+		switch (dave.daves)
+		{
+			case 3:
+				davesHeadTexture3.Visible = false;
+				break;
+			case 2:
+				davesHeadTexture2.Visible = false;
+				break;
+			case 1:
+				davesHeadTexture1.Visible = false;
+				break;
+		}
+	}
+
+	public void OnDaveDeath()
+	{
+		dave.SetPhysicsProcess(false);
+		deathScreenPanel.Visible = true;
 	}
 	
 	public void UpdateGunStatus(bool status = true)

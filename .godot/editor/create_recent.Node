@@ -1,7 +1,8 @@
-HBoxContainer
-Label
+Panel
 Button
+HBoxContainer
 RichTextLabel
+Label
 AudioStreamPlayer
 AnimatedSprite2D
 VBoxContainer
@@ -13,7 +14,6 @@ CanvasGroup
 TextureRect
 TextureProgressBar
 MenuButton
-Panel
 AudioStreamPlayer2D
 CollisionShape2D
 PathFollow2D

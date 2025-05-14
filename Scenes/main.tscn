@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bcg1oyslepv3u"]
+[gd_scene load_steps=53 format=3 uid="uid://bcg1oyslepv3u"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_38wgf"]
 [ext_resource type="Texture2D" uid="uid://c21cmei0mcyks" path="res://Assest/tiles.png" id="2_1hy86"]
@@ -35,6 +35,7 @@ texture = ExtResource("2_isgcx")
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-7.40625, -7.4375, 7.21875, -7.3125, 7.34375, 7.1875, -7.46875, 7.375)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_32g8k"]
 texture = ExtResource("2_1hy86")
@@ -49,6 +50,7 @@ texture = ExtResource("2_1hy86")
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-7.40625, -7.4375, 7.21875, -7.3125, 7.34375, 7.1875, -7.46875, 7.375)
 4:0/0 = 0
 4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 4:0/0/physics_layer_0/angular_velocity = 0.0
@@ -300,6 +302,7 @@ texture = ExtResource("2_1hy86")
 9:0/0/physics_layer_0/angular_velocity = 0.0
 9:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 9:0/0/physics_layer_1/angular_velocity = 0.0
+9:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-7.40625, -7.4375, 7.21875, -7.3125, 7.34375, 7.1875, -7.46875, 7.375)
 9:1/0 = 0
 9:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 9:1/0/physics_layer_0/angular_velocity = 0.0
@@ -576,6 +579,14 @@ size = Vector2(20, 12)
 font_names = PackedStringArray("Cambria")
 multichannel_signed_distance_field = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3knr1"]
+bg_color = Color(0, 0, 0, 0.721569)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+
 [node name="Node" type="Node"]
 
 [node name="Main" type="Node2D" parent="."]
@@ -590,7 +601,7 @@ layer_0/tile_data = PackedInt32Array(0, 720902, 1, 1, 720902, 1, 2, 720902, 1, 3
 metadata/_edit_lock_ = true
 
 [node name="Dave" parent="Main" instance=ExtResource("3_dpp61")]
-position = Vector2(47, 136)
+position = Vector2(50, 135)
 speed = 70
 terminalYVelocity = 110.0
 jump = 120.0
@@ -1109,6 +1120,7 @@ anchors_preset = 0
 offset_left = 12992.0
 offset_right = 13312.0
 offset_bottom = 160.0
+metadata/_edit_lock_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Main/Control"]
 layout_mode = 1
@@ -1312,5 +1324,58 @@ offset_bottom = 198.0
 texture = ExtResource("16_p1j53")
 metadata/_edit_lock_ = true
 
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 0
+offset_left = 28.0
+offset_top = 37.0
+offset_right = 278.0
+offset_bottom = 137.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3knr1")
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = 9.0
+offset_right = 12.0
+offset_bottom = 263.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_4rqj1")
+theme_override_font_sizes/normal_font_size = 17
+text = "		   YOU DIED!"
+fit_content = true
+metadata/_edit_lock_ = true
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/Control/Panel"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 66.0
+offset_right = 202.0
+offset_bottom = 86.0
+theme_override_constants/separation = 25
+metadata/_edit_lock_ = true
+
+[node name="Restart" type="Button" parent="CanvasLayer/Control/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Restart"
+metadata/_edit_lock_ = true
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/Control/Panel/ButtonContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Main Menu"
+metadata/_edit_lock_ = true
+
 [connection signal="pressed" from="Main/Control/ButtonContainer/Restart" to="Main" method="OnRestartButtonPressed"]
 [connection signal="pressed" from="Main/Control/ButtonContainer/MainMenu" to="Main" method="OnMainMenuButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Panel/ButtonContainer/Restart" to="Main" method="OnRestartButtonPressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Panel/ButtonContainer/MainMenu" to="Main" method="OnMainMenuButtonPressed"]

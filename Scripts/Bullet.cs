@@ -18,6 +18,13 @@ public partial class Bullet : AnimatedSprite2D
 	{
 		if(body.Name=="TileMap")
 			QueueFree();
+
+		if (body.Name == "Dave" && body.Name != Spawner.Name)
+		{
+			body.GetNode("Health").Call("Damage");
+			main.OnBulletHit();
+			QueueFree();
+		}
 	}
 
 	private void OnAreaEntered(Area2D area)

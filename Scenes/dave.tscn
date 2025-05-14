@@ -170,7 +170,7 @@ shape = SubResource("RectangleShape2D_8f1ap")
 metadata/_edit_lock_ = true
 
 [node name="Health" parent="." instance=ExtResource("3_uw5qr")]
-lives = 4
+lives = 3
 metadata/_edit_lock_ = true
 
 [node name="Area2D2" type="Area2D" parent="."]

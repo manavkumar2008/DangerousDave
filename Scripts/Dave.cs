@@ -25,6 +25,7 @@ public partial class Dave : CharacterBody2D
 	private int currentLevelFirstCameraPositionIndex;
 	private bool isBulletPresent;
 	private int isOnTreeCooldown = 0;
+	public byte daves = 4;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
 	
@@ -359,6 +360,13 @@ public partial class Dave : CharacterBody2D
 			return;
 		}
 		
+		if(tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(0, 0)) || tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(9, 0)))
+		{
+			camera.CompleteLevelTransition(currentLevelFirstCameraPositionIndex);
+			OnDamage();
+			return;
+		}
+		
 		CheckForCollectibles(tileCoordinate);
 	}
 
@@ -439,8 +447,16 @@ public partial class Dave : CharacterBody2D
 
 	public void OnDamage()
 	{
-		Position = lastCheckpoint;
+		daves--;
 		PlaySpecialStream(deathSound);
+		if (daves != 0)
+		{
+			Position = lastCheckpoint;
+			main.OnDaveDamage();
+			main.PauseGame();
+		}
+		else
+			main.OnDaveDeath();
 	}
 
 	private void SpawnBullet()
@@ -466,7 +482,6 @@ public partial class Dave : CharacterBody2D
 		if(!isDoingLevelTransition)
 		{
 			Move();
-			GD.Print(state.ToString());
 			PlayAnimations();
 			Gravity(delta);	
 		}
