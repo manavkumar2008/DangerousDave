@@ -103,11 +103,11 @@ public partial class Main : Node2D
 				davesHeadTexture1.Visible = false;
 				break;
 		}
+		PauseGame();
 	}
 
 	public void OnDaveDeath()
 	{
-		dave.SetPhysicsProcess(false);
 		deathScreenPanel.Visible = true;
 	}
 	

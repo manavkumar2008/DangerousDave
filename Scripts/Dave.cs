@@ -28,6 +28,7 @@ public partial class Dave : CharacterBody2D
 	public byte daves = 4;
 	
 	private PackedScene bulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
+	private PackedScene explosionScene = ResourceLoader.Load<PackedScene>("res://Scenes/explosion_sprite.tscn");
 	
 	private AudioStream jumpingSound = GD.Load<AudioStream>("res://Assest/sounds/jump.wav");
 	private AudioStream walkingSound = GD.Load<AudioStream>("res://Assest/sounds/footstep.wav");
@@ -316,7 +317,7 @@ public partial class Dave : CharacterBody2D
 
 	private void OnBodyShapeEntered(Rid bodyRid, Node2D body, int bodyShapeIndex, int localShapeIndex)
 	{
-		if(isDoingLevelTransition) return;
+		if(isDoingLevelTransition || !IsPhysicsProcessing()) return;
 		Vector2I tileCoordinate = tilemap.GetCoordsForBodyRid(bodyRid);
 
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(5, 0)))
@@ -429,13 +430,13 @@ public partial class Dave : CharacterBody2D
 		if(hasTrophy)
 		{
 			PlaySpecialStream(transitionSound);
+			main.UpdateLevel();
 			isDoingLevelTransition = true;
 			lastCheckpoint = teleportCoordinate;
 			hasTrophy = false;
 			jetpack = 0;
 			hasGun = false;
 			velocity = Vector2.Zero;
-			main.UpdateLevel();
 			Position = new Vector2(27, -184);
 		}
 	}
@@ -449,14 +450,18 @@ public partial class Dave : CharacterBody2D
 	{
 		daves--;
 		PlaySpecialStream(deathSound);
+		
+		ExplosionSprite explosion = explosionScene.Instantiate<ExplosionSprite>();
+		explosion.Position = GlobalPosition;
 		if (daves != 0)
-		{
-			Position = lastCheckpoint;
-			main.OnDaveDamage();
-			main.PauseGame();
-		}
+			explosion.GetChild<Timer>(0).Timeout += ()=>{Position = lastCheckpoint;
+				main.OnDaveDamage();};
 		else
-			main.OnDaveDeath();
+			explosion.GetChild<Timer>(0).Timeout += ()=>{ main.OnDaveDeath();};
+		
+		SetPhysicsProcess(false);
+		Visible = false;
+		main.AddChild(explosion);
 	}
 
 	private void SpawnBullet()

@@ -1,10 +1,11 @@
+Timer
+AnimatedSprite2D
 Panel
 Button
 HBoxContainer
 RichTextLabel
 Label
 AudioStreamPlayer
-AnimatedSprite2D
 VBoxContainer
 ColorRect
 Control

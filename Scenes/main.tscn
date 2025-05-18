@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bcg1oyslepv3u"]
+[gd_scene load_steps=61 format=3 uid="uid://bcg1oyslepv3u"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_38wgf"]
 [ext_resource type="Texture2D" uid="uid://c21cmei0mcyks" path="res://Assest/tiles.png" id="2_1hy86"]
@@ -8,16 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://ddptvbrqjyt3n" path="res://Scenes/Camera.tscn" id="5_iuecn"]
 [ext_resource type="PackedScene" uid="uid://dekpj1yv6t6s2" path="res://Scenes/enemy.tscn" id="5_qp161"]
 [ext_resource type="Texture2D" uid="uid://cn3onpqhnd5ie" path="res://Assest/ScoreHud.png" id="7_3uuf7"]
+[ext_resource type="PackedScene" uid="uid://si38ej4hf5lb" path="res://Scenes/enemy_sprite_1.tscn" id="8_3tc6n"]
 [ext_resource type="FontFile" uid="uid://b14tk2yfsmpqg" path="res://Assest/DDNumbers.png" id="8_koehe"]
 [ext_resource type="AudioStream" uid="uid://bwu087n4flov4" path="res://Assest/sounds/hit.wav" id="8_kqy4j"]
 [ext_resource type="Script" path="res://Scripts/CanvasLayer.cs" id="8_mmmio"]
+[ext_resource type="PackedScene" uid="uid://cs0kx687jknnb" path="res://Scenes/enemy_sprite_2.tscn" id="9_2if5h"]
 [ext_resource type="Texture2D" uid="uid://k22xcgwla23q" path="res://Assest/LevelHud.png" id="9_w5ibi"]
+[ext_resource type="PackedScene" uid="uid://dyvwpa7bxs6h5" path="res://Scenes/enemy_sprite_3.tscn" id="10_cbag5"]
 [ext_resource type="Texture2D" uid="uid://4hund20ncemd" path="res://Assest/DavesHud.png" id="10_wcbss"]
+[ext_resource type="PackedScene" uid="uid://cnk3ux8a7cjgf" path="res://Scenes/enemy_sprite_4.tscn" id="11_dtquu"]
 [ext_resource type="Texture2D" uid="uid://c22l650ptxkc3" path="res://Assest/Dhead.png" id="11_mwevs"]
 [ext_resource type="Texture2D" uid="uid://d2i338061nxka" path="res://Assest/Silverbar.png" id="12_wb1ka"]
+[ext_resource type="PackedScene" uid="uid://bcnnk8v4fbwd6" path="res://Scenes/enemy_sprite_5.tscn" id="12_wcadf"]
 [ext_resource type="Texture2D" uid="uid://be8sa7u1pbf4u" path="res://Assest/jetpackText.png" id="13_b61d4"]
+[ext_resource type="PackedScene" uid="uid://c4ykqjo0hh52x" path="res://Scenes/enemy_sprite_6.tscn" id="13_xvsi0"]
+[ext_resource type="PackedScene" uid="uid://b60mf3qfrds3p" path="res://Scenes/enemy_sprite_7.tscn" id="14_41pcx"]
 [ext_resource type="Texture2D" uid="uid://3nfxplqag2b3" path="res://Assest/Dgunhud.png" id="14_lu7rt"]
 [ext_resource type="Texture2D" uid="uid://dilwpohury5h5" path="res://Assest/JetpackBarHUD.png" id="15_f2046"]
+[ext_resource type="PackedScene" uid="uid://jflrmb0mxf0k" path="res://Scenes/enemy_sprite_8.tscn" id="15_qd6pd"]
 [ext_resource type="Texture2D" uid="uid://bv8b2373yimfl" path="res://Assest/GoThruTheDoorTextHud.png" id="16_p1j53"]
 [ext_resource type="Texture2D" uid="uid://cbh3qc3p0wfru" path="res://Assest/JetpackProgress.png" id="18_akgbb"]
 
@@ -480,7 +488,7 @@ _data = {
 point_count = 32
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tb6dw"]
-size = Vector2(28, 16)
+size = Vector2(20, 16)
 
 [sub_resource type="Curve2D" id="Curve2D_md66b"]
 _data = {
@@ -489,7 +497,7 @@ _data = {
 point_count = 21
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2num"]
-size = Vector2(28, 15)
+size = Vector2(18.0001, 16)
 
 [sub_resource type="Curve2D" id="Curve2D_2toup"]
 _data = {
@@ -498,7 +506,7 @@ _data = {
 point_count = 22
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih4e6"]
-size = Vector2(28, 14)
+size = Vector2(19, 16)
 
 [sub_resource type="Curve2D" id="Curve2D_mwrtr"]
 _data = {
@@ -507,7 +515,7 @@ _data = {
 point_count = 26
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mkcq4"]
-size = Vector2(28, 15)
+size = Vector2(18, 16)
 
 [sub_resource type="Curve2D" id="Curve2D_vb825"]
 _data = {
@@ -516,7 +524,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ky0f1"]
-size = Vector2(28, 14)
+size = Vector2(15, 14)
 
 [sub_resource type="Curve2D" id="Curve2D_ur524"]
 _data = {
@@ -525,7 +533,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r50cc"]
-size = Vector2(28, 14)
+size = Vector2(14.9998, 14)
 
 [sub_resource type="Curve2D" id="Curve2D_sqy87"]
 _data = {
@@ -534,7 +542,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnuk1"]
-size = Vector2(28, 14)
+size = Vector2(16, 14)
 
 [sub_resource type="Curve2D" id="Curve2D_xg6cy"]
 _data = {
@@ -543,7 +551,7 @@ _data = {
 point_count = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gangf"]
-size = Vector2(28, 16)
+size = Vector2(17, 14)
 
 [sub_resource type="Curve2D" id="Curve2D_cui2h"]
 _data = {
@@ -552,10 +560,10 @@ _data = {
 point_count = 25
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3nfdq"]
-size = Vector2(20, 12)
+size = Vector2(16, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yucdg"]
-size = Vector2(20, 14)
+size = Vector2(16, 4)
 
 [sub_resource type="Curve2D" id="Curve2D_a2a7p"]
 _data = {
@@ -564,16 +572,16 @@ _data = {
 point_count = 41
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqu5e"]
-size = Vector2(22, 16)
+size = Vector2(12, 8)
 
 [sub_resource type="Curve2D" id="Curve2D_p0tpi"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 10585, 132, 0, 0, 0, 0, 10586.5, 132.576, 0, 0, 0, 0, 10605, 132, 0, 0, 0, 0, 10616, 132.653, 0, 0, 0, 0, 10697, 132, 0, 0, 0, 0, 10585, 132)
+"points": PackedVector2Array(0, 0, 0, 0, 10580, 132.165, 0, 0, 0, 0, 10586.5, 132.576, 0, 0, 0, 0, 10605, 132, 0, 0, 0, 0, 10616, 132.165, 0, 0, 0, 0, 10697.9, 133, 0, 0, 0, 0, 10585, 132)
 }
 point_count = 6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edc5d"]
-size = Vector2(20, 12)
+size = Vector2(10, 16)
 
 [sub_resource type="SystemFont" id="SystemFont_4rqj1"]
 font_names = PackedStringArray("Cambria")
@@ -601,7 +609,7 @@ layer_0/tile_data = PackedInt32Array(0, 720902, 1, 1, 720902, 1, 2, 720902, 1, 3
 metadata/_edit_lock_ = true
 
 [node name="Dave" parent="Main" instance=ExtResource("3_dpp61")]
-position = Vector2(50, 135)
+position = Vector2(6123, 114)
 speed = 70
 terminalYVelocity = 110.0
 jump = 120.0
@@ -632,6 +640,9 @@ position = Vector2(0.120605, 0.737061)
 shape = SubResource("RectangleShape2D_hgoxg")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite1" parent="Main/Path2D2/PathFollow2D/Enemy" instance=ExtResource("8_3tc6n")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D" type="Path2D" parent="Main"]
 curve = SubResource("Curve2D_fvqc1")
 metadata/_edit_lock_ = true
@@ -650,6 +661,9 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D/PathFollow2D/Enemy"]
 position = Vector2(0.224976, 0.21347)
 shape = SubResource("RectangleShape2D_7dacv")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite1" parent="Main/Path2D/PathFollow2D/Enemy" instance=ExtResource("8_3tc6n")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D3" type="Path2D" parent="Main"]
@@ -672,6 +686,9 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_tb6dw")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite2" parent="Main/Path2D3/PathFollow2D/Enemy" instance=ExtResource("9_2if5h")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D4" type="Path2D" parent="Main"]
 curve = SubResource("Curve2D_md66b")
 metadata/_edit_lock_ = true
@@ -689,8 +706,11 @@ progress = PackedFloat32Array(245, 190)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D4/PathFollow2D/Enemy"]
-position = Vector2(0, 0.5)
+position = Vector2(-0.00927734, 0)
 shape = SubResource("RectangleShape2D_t2num")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite3" parent="Main/Path2D4/PathFollow2D/Enemy" instance=ExtResource("10_cbag5")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D5" type="Path2D" parent="Main"]
@@ -710,7 +730,12 @@ progress = PackedFloat32Array(160, 202)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D5/PathFollow2D/Enemy"]
+position = Vector2(-0.0595703, 0.0260162)
 shape = SubResource("RectangleShape2D_ih4e6")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite3" parent="Main/Path2D5/PathFollow2D/Enemy" instance=ExtResource("10_cbag5")]
+frame_progress = 0.815017
 metadata/_edit_lock_ = true
 
 [node name="Path2D6" type="Path2D" parent="Main"]
@@ -732,6 +757,9 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_mkcq4")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite3" parent="Main/Path2D6/PathFollow2D/Enemy" instance=ExtResource("10_cbag5")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D7" type="Path2D" parent="Main"]
 curve = SubResource("Curve2D_vb825")
 metadata/_edit_lock_ = true
@@ -749,8 +777,12 @@ progress = PackedFloat32Array(215)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D7/PathFollow2D/Enemy"]
-position = Vector2(-0.390625, 0)
+position = Vector2(-0.015625, 0)
 shape = SubResource("RectangleShape2D_ky0f1")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite4" parent="Main/Path2D7/PathFollow2D/Enemy" instance=ExtResource("11_dtquu")]
+frame_progress = 0.0
 metadata/_edit_lock_ = true
 
 [node name="Path2D8" type="Path2D" parent="Main"]
@@ -770,7 +802,11 @@ progress = PackedFloat32Array(35)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D8/PathFollow2D/Enemy"]
+position = Vector2(0.180176, 0)
 shape = SubResource("RectangleShape2D_r50cc")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite4" parent="Main/Path2D8/PathFollow2D/Enemy" instance=ExtResource("11_dtquu")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D9" type="Path2D" parent="Main"]
@@ -790,7 +826,11 @@ progress = PackedFloat32Array(130, 194)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D9/PathFollow2D/Enemy"]
+position = Vector2(0.0205078, 0)
 shape = SubResource("RectangleShape2D_cnuk1")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite4" parent="Main/Path2D9/PathFollow2D/Enemy" instance=ExtResource("11_dtquu")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D10" type="Path2D" parent="Main"]
@@ -810,7 +850,12 @@ progress = PackedFloat32Array(45)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D10/PathFollow2D/Enemy"]
+position = Vector2(0.0615234, 0)
 shape = SubResource("RectangleShape2D_gangf")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite4" parent="Main/Path2D10/PathFollow2D/Enemy" instance=ExtResource("11_dtquu")]
+frame_progress = 0.0
 metadata/_edit_lock_ = true
 
 [node name="Path2D11" type="Path2D" parent="Main"]
@@ -829,6 +874,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D11/PathFollow2D/Enemy"]
 shape = SubResource("RectangleShape2D_3nfdq")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite5" parent="Main/Path2D11/PathFollow2D/Enemy" instance=ExtResource("12_wcadf")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D12" type="Path2D" parent="Main"]
@@ -851,6 +899,9 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_yucdg")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite5" parent="Main/Path2D12/PathFollow2D/Enemy" instance=ExtResource("12_wcadf")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D13" type="Path2D" parent="Main"]
 position = Vector2(667, 17)
 curve = SubResource("Curve2D_cui2h")
@@ -869,6 +920,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D13/PathFollow2D/Enemy"]
 shape = SubResource("RectangleShape2D_yucdg")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite5" parent="Main/Path2D13/PathFollow2D/Enemy" instance=ExtResource("12_wcadf")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D14" type="Path2D" parent="Main"]
@@ -892,6 +946,9 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_yucdg")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite5" parent="Main/Path2D14/PathFollow2D/Enemy" instance=ExtResource("12_wcadf")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D15" type="Path2D" parent="Main"]
 curve = SubResource("Curve2D_a2a7p")
 metadata/_edit_lock_ = true
@@ -909,6 +966,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D15/PathFollow2D/Enemy"]
 shape = SubResource("RectangleShape2D_hqu5e")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite6" parent="Main/Path2D15/PathFollow2D/Enemy" instance=ExtResource("13_xvsi0")]
 metadata/_edit_lock_ = true
 
 [node name="Path2D16" type="Path2D" parent="Main"]
@@ -932,6 +992,9 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_hqu5e")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite6" parent="Main/Path2D16/PathFollow2D/Enemy" instance=ExtResource("13_xvsi0")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D17" type="Path2D" parent="Main"]
 position = Vector2(499, -62)
 curve = SubResource("Curve2D_a2a7p")
@@ -952,12 +1015,16 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_hqu5e")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite6" parent="Main/Path2D17/PathFollow2D/Enemy" instance=ExtResource("13_xvsi0")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D18" type="Path2D" parent="Main"]
+position = Vector2(0, 2.235)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D18"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -967,16 +1034,22 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D18/PathFollow2D/Enemy"]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite7" parent="Main/Path2D18/PathFollow2D/Enemy" instance=ExtResource("14_41pcx")]
+frame = 0
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
 [node name="Path2D19" type="Path2D" parent="Main"]
-position = Vector2(123, 1)
+position = Vector2(123, 1.835)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D19"]
-position = Vector2(10639.9, 132.461)
+position = Vector2(10635, 132.358)
 progress = 55.0079
 rotates = false
 script = ExtResource("5_dgvcn")
@@ -985,6 +1058,11 @@ metadata/_edit_lock_ = true
 
 [node name="Enemy" parent="Main/Path2D19/PathFollow2D" instance=ExtResource("5_qp161")]
 progress = PackedFloat32Array(40)
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite7" parent="Main/Path2D19/PathFollow2D/Enemy" instance=ExtResource("14_41pcx")]
+frame = 0
+frame_progress = 0.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D19/PathFollow2D/Enemy"]
@@ -997,7 +1075,7 @@ curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D20"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1011,13 +1089,16 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite7" parent="Main/Path2D20/PathFollow2D/Enemy" instance=ExtResource("14_41pcx")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D21" type="Path2D" parent="Main"]
-position = Vector2(517, 3)
+position = Vector2(503.21, 3)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D21"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1031,13 +1112,16 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite7" parent="Main/Path2D21/PathFollow2D/Enemy" instance=ExtResource("14_41pcx")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D22" type="Path2D" parent="Main"]
-position = Vector2(1360, 4)
+position = Vector2(1361.09, 4)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D22"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1051,13 +1135,16 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite8" parent="Main/Path2D22/PathFollow2D/Enemy" instance=ExtResource("15_qd6pd")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D23" type="Path2D" parent="Main"]
-position = Vector2(1471, -92)
+position = Vector2(1471.26, -92)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D23"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1071,13 +1158,16 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite8" parent="Main/Path2D23/PathFollow2D/Enemy" instance=ExtResource("15_qd6pd")]
+metadata/_edit_lock_ = true
+
 [node name="Path2D24" type="Path2D" parent="Main"]
 position = Vector2(1695, -76)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D24"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1091,13 +1181,18 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_edc5d")
 metadata/_edit_lock_ = true
 
+[node name="EnemySprite8" parent="Main/Path2D24/PathFollow2D/Enemy" instance=ExtResource("15_qd6pd")]
+frame = 0
+frame_progress = 0.0
+metadata/_edit_lock_ = true
+
 [node name="Path2D25" type="Path2D" parent="Main"]
-position = Vector2(1967, -44)
+position = Vector2(1971.46, -44)
 curve = SubResource("Curve2D_p0tpi")
 metadata/_edit_lock_ = true
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Main/Path2D25"]
-position = Vector2(10585, 132)
+position = Vector2(10580, 132.165)
 rotates = false
 script = ExtResource("5_dgvcn")
 speed = 80.0
@@ -1109,6 +1204,9 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Path2D25/PathFollow2D/Enemy"]
 shape = SubResource("RectangleShape2D_edc5d")
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite8" parent="Main/Path2D25/PathFollow2D/Enemy" instance=ExtResource("15_qd6pd")]
 metadata/_edit_lock_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Main"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcnnk8v4fbwd6"]
+
+[ext_resource type="Texture2D" uid="uid://dfdjoem08tuwl" path="res://Assest/EnemyAnimations/SaucerEnemy.png" id="1_sajtn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_todqp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sajtn")
+}],
+"loop": true,
+"name": &"animation",
+"speed": 0.0
+}]
+
+[node name="EnemySprite5" type="AnimatedSprite2D"]
+scale = Vector2(0.19, 0.19)
+sprite_frames = SubResource("SpriteFrames_todqp")
+animation = &"animation"
+autoplay = "animation"

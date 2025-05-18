@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnk3ux8a7cjgf"]
+
+[ext_resource type="Texture2D" uid="uid://b6t5fyt2lchop" path="res://Assest/EnemyAnimations/StraightEnemy.png" id="1_gvvp5"]
+[ext_resource type="Texture2D" uid="uid://737o6ioqt2pd" path="res://Assest/EnemyAnimations/StraightEnemy4.png" id="2_g3h8j"]
+[ext_resource type="Texture2D" uid="uid://l4tlysmd1t35" path="res://Assest/EnemyAnimations/StraightEnemy3.png" id="3_4b8yv"]
+[ext_resource type="Texture2D" uid="uid://belsiptk0gy7t" path="res://Assest/EnemyAnimations/StraightEnemy2.png" id="4_kcjwj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_stfn0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gvvp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g3h8j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4b8yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kcjwj")
+}],
+"loop": true,
+"name": &"animation",
+"speed": 10.0
+}]
+
+[node name="EnemySprite4" type="AnimatedSprite2D"]
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_stfn0")
+animation = &"animation"
+autoplay = "animation"
+frame_progress = 0.0212866

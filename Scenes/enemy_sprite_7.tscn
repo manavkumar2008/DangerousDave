@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://b60mf3qfrds3p"]
+
+[ext_resource type="Texture2D" uid="uid://bh7xw7ksts7se" path="res://Assest/EnemyAnimations/BallEnemy1.png" id="1_wxvte"]
+[ext_resource type="Texture2D" uid="uid://7pne63khu4q7" path="res://Assest/EnemyAnimations/BallEnemy2.png" id="2_u64h0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1awt2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wxvte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_u64h0")
+}],
+"loop": true,
+"name": &"animation",
+"speed": 5.0
+}]
+
+[node name="EnemySprite7" type="AnimatedSprite2D"]
+scale = Vector2(0.21, 0.21)
+sprite_frames = SubResource("SpriteFrames_1awt2")
+animation = &"animation"
+autoplay = "animation"
+frame = 1
+frame_progress = 0.936843

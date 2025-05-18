@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://si38ej4hf5lb"]
+
+[ext_resource type="Texture2D" uid="uid://bc7rqomyp1x7u" path="res://Assest/monster.png" id="1_da3n8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_trpcm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_da3n8")
+}],
+"loop": true,
+"name": &"animation",
+"speed": 0.0
+}]
+
+[node name="EnemySprite1" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(0.75, 0.681818)
+sprite_frames = SubResource("SpriteFrames_trpcm")
+animation = &"animation"
+autoplay = "animation"

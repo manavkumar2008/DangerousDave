@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cefiru1st4na8"]
+
+[ext_resource type="Texture2D" uid="uid://2godivub610m" path="res://Assest/Explosion1.png" id="1_ientw"]
+[ext_resource type="Texture2D" uid="uid://twlfcoun4yiq" path="res://Assest/Explosion2.png" id="2_ob20b"]
+[ext_resource type="Texture2D" uid="uid://d2rvlt74mg00f" path="res://Assest/Explosion3.png" id="3_qwp40"]
+[ext_resource type="Texture2D" uid="uid://cdkx4wy20v6le" path="res://Assest/Explosion4.png" id="4_2lmra"]
+[ext_resource type="Script" path="res://Scripts/ExplosionSprite.cs" id="5_62lrv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7cb6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ientw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ob20b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qwp40")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2lmra")
+}],
+"loop": true,
+"name": &"animation",
+"speed": 4.0
+}]
+
+[node name="ExplosionSprite" type="AnimatedSprite2D"]
+scale = Vector2(0.18, 0.18)
+sprite_frames = SubResource("SpriteFrames_h7cb6")
+animation = &"animation"
+autoplay = "animation"
+script = ExtResource("5_62lrv")
+
+[node name="Timer" type="Timer" parent="."]

@@ -5,22 +5,18 @@ using Microsoft.VisualBasic;
 
 public partial class Enemy : Area2D
 {
-	[Export] 
-	private int type = 1;
 	[Export]
 	private float[] progress = Array.Empty<float>();
 	
 	private Dave dave;
 
 	private PackedScene BulletScene = ResourceLoader.Load<PackedScene>("res://Scenes/bullet.tscn");
+	private PackedScene explosionScene = ResourceLoader.Load<PackedScene>("res://Scenes/explosion_sprite.tscn");
 	
-	AnimatedSprite2D sprite;
 	private Main main;
 	
 	public override void _Ready()
 	{
-		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		sprite.Play(type.ToString());
 		dave = GetNode<Dave>("/root/Node/Main/Dave");
 		main = GetNode<Main>("/root/Node/Main");
 	}
@@ -29,9 +25,17 @@ public partial class Enemy : Area2D
 	{
 		if (body.Name == "Dave")
 		{
-			body.GetNode("Health").Call("Damage");
-			QueueFree();
+			body.Call("OnDamage");
+			OnDamage();
 		}
+	}
+
+	public void OnDamage()
+	{
+		ExplosionSprite explosion = explosionScene.Instantiate<ExplosionSprite>();
+		explosion.Position = GlobalPosition;
+		main.AddChild(explosion);
+		QueueFree();
 	}
 
 	private void Shoot()
@@ -42,6 +46,7 @@ public partial class Enemy : Area2D
 			{
 				Bullet bullet = BulletScene.Instantiate<Bullet>();
 				bullet.Position = GlobalPosition;
+				bullet.speed = 100;
 				bullet.Spawner = this;
 				
 				if (dave.Position.X < GlobalPosition.X)

@@ -21,7 +21,7 @@ public partial class Bullet : AnimatedSprite2D
 
 		if (body.Name == "Dave" && body.Name != Spawner.Name)
 		{
-			body.GetNode("Health").Call("Damage");
+			body.Call("OnDamage");
 			main.OnBulletHit();
 			QueueFree();
 		}
@@ -29,9 +29,9 @@ public partial class Bullet : AnimatedSprite2D
 
 	private void OnAreaEntered(Area2D area)
 	{
-		if(area.HasNode("Health") && !(area.GetParent().Name == Spawner.Name || area.Name == Spawner.Name))
+		if(!(area.GetParent() is Bullet) && !(area.GetParent().Name == Spawner.Name || area.Name == Spawner.Name))
 		{
-			area.GetNode("Health").Call("Damage");
+			area.Call("OnDamage");
 			main.OnBulletHit();
 			QueueFree();
 		}
