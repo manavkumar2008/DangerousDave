@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PathFollow2D : Godot.PathFollow2D
 {

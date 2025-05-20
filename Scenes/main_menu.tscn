@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlmhhssgf3f37"]
+[gd_scene load_steps=12 format=3 uid="uid://dlmhhssgf3f37"]
 
 [ext_resource type="Script" path="res://Scripts/ControlMainMenu.cs" id="1_bgkag"]
 [ext_resource type="Texture2D" uid="uid://7rt27t2gbjb8" path="res://Assest/Title.png" id="2_elvhc"]
@@ -47,6 +47,9 @@ animations = [{
 "name": &"default",
 "speed": 8.0
 }]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtua"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.933333)
 
 [node name="MainMenu" type="Node"]
 
@@ -98,7 +101,7 @@ custom_minimum_size = Vector2(300, 60)
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_2bj6u")
 theme_override_font_sizes/font_size = 35
-text = "OPTIONS"
+text = "CONTROLS"
 
 [node name="Button3" type="Button" parent="ControlMainMenu/VBoxContainer"]
 custom_minimum_size = Vector2(300, 60)
@@ -115,5 +118,209 @@ autoplay = "default"
 frame_progress = 0.3514
 metadata/_edit_lock_ = true
 
+[node name="Panel" type="Panel" parent="ControlMainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 114.0
+offset_top = 80.0
+offset_right = -118.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hqtua")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlMainMenu/Panel"]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 191.0
+offset_right = 340.0
+offset_bottom = 426.0
+theme_override_constants/separation = 50
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlMainMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Movement        :"
+
+[node name="TextEdit" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "   W A S D KEYS
+
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="TextEdit2" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "   ARROW KEYS
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ControlMainMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Shoot                 :"
+
+[node name="TextEdit" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "   CTRL
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="TextEdit2" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "		 SPACE 
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="TextEdit3" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "	LEFT MOUSE BUTTON
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ControlMainMenu/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Toggle Jetpack :"
+
+[node name="TextEdit" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "	   J
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="TextEdit2" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = "   ALT
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="TextEdit3" type="TextEdit" parent="ControlMainMenu/Panel/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+placeholder_text = " RIGHT MOUSE BUTTON
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+highlight_current_line = true
+
+[node name="Button" type="Button" parent="ControlMainMenu/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 482.0
+offset_top = 527.0
+offset_right = -480.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Close"
+metadata/_edit_lock_ = true
+
 [connection signal="pressed" from="ControlMainMenu/VBoxContainer/Button" to="ControlMainMenu" method="Pressed"]
+[connection signal="pressed" from="ControlMainMenu/VBoxContainer/Button2" to="ControlMainMenu" method="PressedControls"]
 [connection signal="pressed" from="ControlMainMenu/VBoxContainer/Button3" to="ControlMainMenu" method="PresssedExit"]
+[connection signal="pressed" from="ControlMainMenu/Panel/Button" to="ControlMainMenu" method="PressedClosePanel"]

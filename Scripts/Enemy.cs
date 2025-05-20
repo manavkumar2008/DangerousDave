@@ -1,7 +1,5 @@
 using Godot;
 using System;
-using GodotPlugins.Game;
-using Microsoft.VisualBasic;
 
 public partial class Enemy : Area2D
 {
@@ -45,8 +43,8 @@ public partial class Enemy : Area2D
 			if(Math.Round(GetParent<PathFollow2D>().Progress).Equals(progress[i]))
 			{
 				Bullet bullet = BulletScene.Instantiate<Bullet>();
+				bullet.animation = "monster";
 				bullet.Position = GlobalPosition;
-				bullet.speed = 100;
 				bullet.Spawner = this;
 				
 				if (dave.Position.X < GlobalPosition.X)

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Main : Node2D
 {
@@ -46,9 +45,10 @@ public partial class Main : Node2D
 		jetpackRect.Visible = false;
 		goThruDoor.Visible = false;
 		jetpackBar.Visible = false;
+		jetpackBar.MaxValue = dave.maxJetPack;
 		ProcessMode = ProcessModeEnum.Always;
 		blinkTimer = Time.GetTicksMsec();
-		currentLevel = 0;
+		currentLevel = 1;
 	}
 
 	public void PauseGame()
@@ -57,9 +57,14 @@ public partial class Main : Node2D
 		{
 			dave.SetProcess(false);
 			dave.Visible = false;
+			dave.SetPhysicsProcess(false);
 		}
-		Engine.TimeScale = 0.0;
-		dave.SetPhysicsProcess(false);
+		else
+		{
+			Engine.TimeScale = 0.0;
+			dave.SetPhysicsProcess(false);
+		}
+		
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -74,6 +79,7 @@ public partial class Main : Node2D
 		Engine.TimeScale = 1.0;
 		dave.Visible = true;
 		dave.SetPhysicsProcess(true);
+		dave.collisionShapeDisabled(false);
 	}
 
 	private void PlayerBlink(double deltaTime)

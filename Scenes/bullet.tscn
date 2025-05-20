@@ -1,26 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://djo2nrfwwk0f6"]
+[gd_scene load_steps=6 format=3 uid="uid://djo2nrfwwk0f6"]
 
-[ext_resource type="Texture2D" uid="uid://dxihjdv84js0v" path="res://Assest/Screenshot 2025-01-24 134152.png" id="1_7qix7"]
+[ext_resource type="Texture2D" uid="uid://bn478kbphvmbh" path="res://Assest/bullet.png" id="1_37ek2"]
+[ext_resource type="Texture2D" uid="uid://b0whh03ffp1qo" path="res://Assest/monsterBullet.png" id="2_gh8at"]
 [ext_resource type="Script" path="res://Scripts/Bullet.cs" id="2_o0ipq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wum6c"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_7qix7")
+"texture": ExtResource("1_37ek2")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gh8at")
+}],
+"loop": true,
+"name": &"monster",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r2mgb"]
-size = Vector2(42.7673, 16.0063)
+size = Vector2(14.5676, 4.97419)
 
 [node name="Bullet" type="AnimatedSprite2D"]
 texture_filter = 1
-position = Vector2(2.38419e-07, -5.96046e-08)
-scale = Vector2(0.183594, 0.1875)
+position = Vector2(-1.21094, -5.96046e-08)
+scale = Vector2(0.6, 0.614)
 sprite_frames = SubResource("SpriteFrames_wum6c")
 script = ExtResource("2_o0ipq")
 
@@ -28,12 +37,15 @@ script = ExtResource("2_o0ipq")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.403553, 1.07427)
+position = Vector2(5.22684, -0.0205056)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_r2mgb")
+metadata/_edit_lock_ = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-5.50976, 1.00113)
+position = Vector2(6.76549, -0.250679)
 scale = Vector2(1.55098, 0.799774)
+metadata/_edit_lock_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

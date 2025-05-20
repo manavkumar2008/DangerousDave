@@ -1,12 +1,5 @@
 using Godot;
-using System;
-using System.Data.Common;
-using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Intrinsics.X86;
-using System.Xml.Linq;
-using GodotPlugins.Game;
 
 public partial class Dave : CharacterBody2D
 {
@@ -18,6 +11,7 @@ public partial class Dave : CharacterBody2D
 	private Main main;
 	private AudioStreamPlayer audioStream;
 	private AudioStreamPlayer audioPlayerSpecial;
+	private CollisionShape2D collisionShape;
 	private bool hasTrophy;
 	public int jetpack;
 	private Vector2 lastCheckpoint;
@@ -47,6 +41,8 @@ public partial class Dave : CharacterBody2D
 	private float terminalYVelocity = 170;
 	[Export]
 	private float jump = 100;
+	[Export] 
+	public int maxJetPack = 2000;
 	
 	public bool isDoingLevelTransition;
 	
@@ -76,6 +72,7 @@ public partial class Dave : CharacterBody2D
 		main = GetParent<Main>();
 		audioStream = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 		audioPlayerSpecial = GetNode<AudioStreamPlayer>("AudioStreamPlayer2");
+		collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 		hasTrophy = false;
 		hasGun = false;
 		jetpack = 0;
@@ -339,7 +336,7 @@ public partial class Dave : CharacterBody2D
 
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(7, 0)))
 		{
-			jetpack = 2000;
+			jetpack = maxJetPack;
 			main.UpdateJetpackStatus(true);
 			PlaySpecialStream(specialPickupSound);
 			tilemap.SetCell(0, tileCoordinate);
@@ -358,12 +355,12 @@ public partial class Dave : CharacterBody2D
 		if (tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(10, 2)))
 		{
 			Teleport((Vector2)tilemap.GetCellTileData(0, tileCoordinate).GetCustomData("Teleport"));
+			velocity = Vector2.Zero;
 			return;
 		}
 		
 		if(tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(0, 0)) || tilemap.GetCellAtlasCoords(0, tileCoordinate).Equals(new Vector2I(9, 0)))
 		{
-			camera.CompleteLevelTransition(currentLevelFirstCameraPositionIndex);
 			OnDamage();
 			return;
 		}
@@ -450,24 +447,31 @@ public partial class Dave : CharacterBody2D
 	{
 		daves--;
 		PlaySpecialStream(deathSound);
+		SetPhysicsProcess(false);
+		collisionShapeDisabled(true);
+		Visible = false;
 		
 		ExplosionSprite explosion = explosionScene.Instantiate<ExplosionSprite>();
 		explosion.Position = GlobalPosition;
 		if (daves != 0)
-			explosion.GetChild<Timer>(0).Timeout += ()=>{Position = lastCheckpoint;
-				main.OnDaveDamage();};
+			explosion.GetChild<Timer>(0).Timeout += ()=>{camera.CompleteLevelTransition(currentLevelFirstCameraPositionIndex); 
+				Position = lastCheckpoint; main.OnDaveDamage();};
 		else
 			explosion.GetChild<Timer>(0).Timeout += ()=>{ main.OnDaveDeath();};
 		
-		SetPhysicsProcess(false);
-		Visible = false;
 		main.AddChild(explosion);
+	}
+
+	public void collisionShapeDisabled(bool disabled)
+	{
+		collisionShape.SetDeferred("disabled", disabled);
 	}
 
 	private void SpawnBullet()
 	{
 		Bullet bullet = bulletScene.Instantiate<Bullet>();
 		bullet.Position = animatedSprite.GlobalPosition;
+		bullet.animation = "default";
 		bullet.FlipH = animatedSprite.FlipH;
 		bullet.velocity = animatedSprite.FlipH ? new Vector2(-1, 0) : new Vector2(1, 0);
 		bullet.Spawner = this;

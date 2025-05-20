@@ -1,8 +1,5 @@
 res://Scenes/main.tscn
-res://Scenes/enemy.tscn
-res://Scenes/explosion_sprite.tscn
-res://Scenes/dave.tscn
-res://Scenes/bullet.tscn
+res://Scenes/main_menu.tscn
 res://Scripts/Bullet.cs
 res://Scripts/Camera.cs
 res://Scripts/CanvasLayer.cs
@@ -13,4 +10,3 @@ res://Scripts/EnemyCollider.cs
 res://Scripts/ExplosionSprite.cs
 res://Scripts/Main.cs
 res://Scripts/PathFollow2D.cs
-res://Scenes/enemy_sprite_4.tscn
