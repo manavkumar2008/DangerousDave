@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://dlmhhssgf3f37"]
+[gd_scene load_steps=10 format=3 uid="uid://dlmhhssgf3f37"]
 
 [ext_resource type="Script" path="res://Scripts/ControlMainMenu.cs" id="1_bgkag"]
 [ext_resource type="Texture2D" uid="uid://7rt27t2gbjb8" path="res://Assest/Title.png" id="2_elvhc"]
+[ext_resource type="Script" path="res://Scripts/Title.cs" id="3_qlf63"]
 
 [sub_resource type="SystemFont" id="SystemFont_pqol4"]
 font_names = PackedStringArray("Britannic")
@@ -16,36 +17,15 @@ font_names = PackedStringArray("Britannic")
 atlas = ExtResource("2_elvhc")
 region = Rect2(0, 0, 112, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dlv77"]
-atlas = ExtResource("2_elvhc")
-region = Rect2(113, 0, 112, 47)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k88q7"]
-atlas = ExtResource("2_elvhc")
-region = Rect2(226, 0, 112, 47)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_polb2"]
-atlas = ExtResource("2_elvhc")
-region = Rect2(339, 0, 112, 47)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_kt5n6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pwuin")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dlv77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k88q7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_polb2")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
-"speed": 8.0
+"speed": 0.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtua"]
@@ -110,13 +90,13 @@ theme_override_fonts/font = SubResource("SystemFont_dkqxl")
 theme_override_font_sizes/font_size = 35
 text = "EXIT"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ControlMainMenu"]
+[node name="Title" type="AnimatedSprite2D" parent="ControlMainMenu"]
 position = Vector2(634, 220)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_kt5n6")
 autoplay = "default"
 frame_progress = 0.3514
-metadata/_edit_lock_ = true
+script = ExtResource("3_qlf63")
 
 [node name="Panel" type="Panel" parent="ControlMainMenu"]
 visible = false

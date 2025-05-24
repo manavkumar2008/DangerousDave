@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbfgnmookhwna"
-path="res://.godot/imported/vines.png-51821e7e91a8e80654e11a1045c8742d.ctex"
+uid="uid://dou5hyttbmbj0"
+path="res://.godot/imported/movement_sprites.png-128859c0f5101857f081d8b5f3edf6e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assest/vines.png"
-dest_files=["res://.godot/imported/vines.png-51821e7e91a8e80654e11a1045c8742d.ctex"]
+source_file="res://Assest/movement_sprites.png"
+dest_files=["res://.godot/imported/movement_sprites.png-128859c0f5101857f081d8b5f3edf6e9.ctex"]
 
 [params]
 

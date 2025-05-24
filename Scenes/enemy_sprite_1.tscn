@@ -15,7 +15,7 @@ animations = [{
 
 [node name="EnemySprite1" type="AnimatedSprite2D"]
 texture_filter = 1
-scale = Vector2(0.75, 0.681818)
+scale = Vector2(1.585, 1.441)
 sprite_frames = SubResource("SpriteFrames_trpcm")
 animation = &"animation"
 autoplay = "animation"

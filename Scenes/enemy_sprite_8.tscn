@@ -25,9 +25,7 @@ animations = [{
 }]
 
 [node name="EnemySprite8" type="AnimatedSprite2D"]
-scale = Vector2(0.205, 0.205)
+scale = Vector2(0.89, 0.89)
 sprite_frames = SubResource("SpriteFrames_uamhe")
 animation = &"animation"
 autoplay = "animation"
-frame = 3
-frame_progress = 0.640785

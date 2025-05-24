@@ -19,16 +19,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("4_gw8tt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tloby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_y55h8")
 }],
 "loop": true,
 "name": &"animation",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [node name="EnemySprite6" type="AnimatedSprite2D"]
-scale = Vector2(0.19, 0.19)
+scale = Vector2(1.11, 1.11)
 sprite_frames = SubResource("SpriteFrames_x8dhx")
 animation = &"animation"
 autoplay = "animation"
-frame = 2
-frame_progress = 0.348202
